@@ -71,7 +71,7 @@ extension BitcoinDetailViewController: UITableViewDataSource, UITableViewDelegat
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellId", for: indexPath)
         let price = prices[indexPath.row]
-        cell.textLabel?.text = "\(price.currency.description) : \(Int(price.price))"
+        cell.textLabel?.text = "\(price.currency.description) : \(Int(price.value))"
         return cell
     }
     

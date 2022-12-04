@@ -48,9 +48,9 @@ private extension CurrencyDetailUseCase {
 
 fileprivate extension HistoryData {
     func toModel() -> [Price] {
-        let usd = Price(price: self.currentPrice.prices.usd, currency: .USD)
-        let eur = Price(price: self.currentPrice.prices.eur, currency: .EUR)
-        let gbp = Price(price: self.currentPrice.prices.gbp, currency: .GBP)
+        let usd = Price(value: self.currentPrice.prices.usd, currency: .USD)
+        let eur = Price(value: self.currentPrice.prices.eur, currency: .EUR)
+        let gbp = Price(value: self.currentPrice.prices.gbp, currency: .GBP)
         return [usd, eur, gbp]
     }
 }

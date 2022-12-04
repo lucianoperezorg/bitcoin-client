@@ -61,7 +61,7 @@ private extension CurrentPriceUseCase {
     static func map(_ data: Data, response: URLResponse) -> CurrentPriceResult {
         do {
             let rootPrice = try JSONDecoder().decode(RemoteCurrentPrice.self, from: data)
-            let price = Price(price: rootPrice.price.current, currency: .EUR)
+            let price = Price(value: rootPrice.price.current, currency: .EUR)
             return .success(price)
         } catch {
             return .failure(error)
