@@ -26,45 +26,58 @@ public class CurrencyDetailUseCase: CurrencyDetailUseCaseType {
     public func currencyDetail(completion: @escaping (CurrencyDetailResult) -> Void) {
         client.get(from: url) { result in
             switch result {
-            case let .success((data, _)):
-                do {
-                    let marketData = try JSONDecoder().decode(MarketData.self, from: data)
-                    let usd = Price(price: marketData.currentPrice.prices.usd, currency: .USD)
-                    let eur = Price(price: marketData.currentPrice.prices.eur, currency: .EUR)
-                    let gbp = Price(price: marketData.currentPrice.prices.gbp, currency: .GBP)
-                    let prices = [usd, eur, gbp]
-                    completion(.success(prices))
-        
-                } catch {}
-                
+            case let .success((data, response)):
+                completion(CurrencyDetailUseCase.map(data, response))
             case .failure(let error):
                 completion(.failure(error))
             }
         }
     }
     
-    
-    
-    //TODO: move this from here
-    private struct MarketData : Decodable {
-        let currentPrice: CurrentPrice
-        
-        enum CodingKeys: String, CodingKey {
-            case currentPrice = "market_data"
+}
+
+fileprivate extension CurrencyDetailUseCase {
+    private static func map(_ data: Data, _ response: HTTPURLResponse) -> CurrencyDetailResult {
+        do {
+            let marketData = try JSONDecoder().decode(MarketData.self, from: data)
+            return .success(marketData.toModel())
+        } catch {
+            return .failure(error)
         }
     }
-    
-    private struct CurrentPrice : Decodable {
-        let prices: Prices
-        
-        enum CodingKeys: String, CodingKey {
-            case prices = "current_price"
-        }
+}
+
+private extension MarketData {
+    func toModel() -> [Price] {
+        let usd = Price(price: self.currentPrice.prices.usd, currency: .USD)
+        let eur = Price(price: self.currentPrice.prices.eur, currency: .EUR)
+        let gbp = Price(price: self.currentPrice.prices.gbp, currency: .GBP)
+        return [usd, eur, gbp]
     }
+}
+
+
+
+
+//TODO: move this from here
+private struct MarketData : Decodable {
+    let currentPrice: CurrentPrice
     
-    private struct Prices: Decodable {
-        let usd: Double
-        let eur: Double
-        let gbp: Double
+    enum CodingKeys: String, CodingKey {
+        case currentPrice = "market_data"
     }
+}
+
+private struct CurrentPrice : Decodable {
+    let prices: Prices
+    
+    enum CodingKeys: String, CodingKey {
+        case prices = "current_price"
+    }
+}
+
+private struct Prices: Decodable {
+    let usd: Double
+    let eur: Double
+    let gbp: Double
 }
