@@ -9,7 +9,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BitcoinListViewController" customModule="Bitcoin_iOS" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BitcoinListViewController" customModule="iOS" customModuleProvider="target">
             <connections>
                 <outlet property="currentPriceLabel" destination="xC4-rf-yBv" id="Oer-dX-HeQ"/>
                 <outlet property="historicalPricesTableView" destination="MVn-Uz-2fZ" id="cU6-uB-teG"/>
@@ -21,35 +21,36 @@
             <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="MVn-Uz-2fZ">
+                    <rect key="frame" x="0.0" y="221.66666666666669" width="393" height="630.33333333333326"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                </tableView>
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" image="btc-icon" translatesAutoresizingMaskIntoConstraints="NO" id="g1s-4J-mou">
+                    <rect key="frame" x="98" y="79" width="50" height="50"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="50" id="4ZJ-PM-VId"/>
+                        <constraint firstAttribute="width" constant="50" id="CWt-jC-bqB"/>
+                    </constraints>
+                </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="16.5677 Euros " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xC4-rf-yBv">
-                    <rect key="frame" x="128.33333333333331" y="79" width="136.33333333333331" height="25.333333333333329"/>
+                    <rect key="frame" x="156" y="79" width="136.33333333333337" height="50"/>
                     <fontDescription key="fontDescription" type="system" pointSize="21"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="MVn-Uz-2fZ">
-                    <rect key="frame" x="0.0" y="154.33333333333331" width="393" height="697.66666666666674"/>
-                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                </tableView>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="btc-icon" translatesAutoresizingMaskIntoConstraints="NO" id="g1s-4J-mou">
-                    <rect key="frame" x="63" y="66.666666666666671" width="50" height="50"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="50" id="0VR-tr-c9U"/>
-                        <constraint firstAttribute="height" constant="50" id="raZ-FD-Vkl"/>
-                    </constraints>
-                </imageView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
+                <constraint firstItem="xC4-rf-yBv" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="20" id="5EG-3n-iWc"/>
+                <constraint firstItem="g1s-4J-mou" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="98" id="722-oa-JKR"/>
                 <constraint firstItem="MVn-Uz-2fZ" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="EZV-3a-FdE"/>
-                <constraint firstItem="MVn-Uz-2fZ" firstAttribute="top" secondItem="xC4-rf-yBv" secondAttribute="bottom" constant="50" id="ILd-1x-Rob"/>
                 <constraint firstItem="MVn-Uz-2fZ" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="Ief-oa-Nfd"/>
-                <constraint firstItem="xC4-rf-yBv" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="20" id="Oc5-CO-M7P"/>
-                <constraint firstItem="g1s-4J-mou" firstAttribute="centerY" secondItem="xC4-rf-yBv" secondAttribute="centerY" id="bwL-M9-wYh"/>
+                <constraint firstItem="xC4-rf-yBv" firstAttribute="leading" secondItem="g1s-4J-mou" secondAttribute="trailing" constant="8" symbolic="YES" id="RDH-KO-ogP"/>
+                <constraint firstItem="g1s-4J-mou" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="20" id="cxM-58-EHJ"/>
                 <constraint firstAttribute="bottom" secondItem="MVn-Uz-2fZ" secondAttribute="bottom" id="drY-eY-SOj"/>
-                <constraint firstItem="xC4-rf-yBv" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="s2B-iC-lYU"/>
-                <constraint firstItem="xC4-rf-yBv" firstAttribute="leading" secondItem="g1s-4J-mou" secondAttribute="trailing" constant="15.333333333333314" id="smu-Jw-4of"/>
+                <constraint firstItem="MVn-Uz-2fZ" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.74" id="hZa-Te-i03"/>
+                <constraint firstItem="xC4-rf-yBv" firstAttribute="centerY" secondItem="g1s-4J-mou" secondAttribute="centerY" id="piD-3U-MYC"/>
             </constraints>
             <point key="canvasLocation" x="-118.32061068702289" y="20.422535211267608"/>
         </view>

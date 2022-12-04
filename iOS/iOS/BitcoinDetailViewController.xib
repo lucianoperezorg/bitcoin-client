@@ -9,9 +9,11 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BitcoinDetailViewController" customModule="Bitcoin_iOS" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BitcoinDetailViewController" customModule="iOS" customModuleProvider="target">
             <connections>
+                <outlet property="containerPricesView" destination="31k-c8-a4h" id="ujX-kk-veB"/>
                 <outlet property="euroLabel" destination="05x-EG-lBB" id="za0-Oq-bna"/>
+                <outlet property="loadingActivityIndicator" destination="ySt-hn-yDi" id="0Sj-0u-YSd"/>
                 <outlet property="poundLabel" destination="K9Z-ii-SPl" id="TeD-Ci-nUx"/>
                 <outlet property="usdLabel" destination="6ac-Z6-JYF" id="TII-o7-bTR"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -45,11 +47,20 @@
                         </label>
                     </subviews>
                 </stackView>
+                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="ySt-hn-yDi">
+                    <rect key="frame" x="186.66666666666666" y="416" width="20" height="20"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="20" id="O7K-6O-WW0"/>
+                        <constraint firstAttribute="height" constant="20" id="ZeJ-Ls-5G6"/>
+                    </constraints>
+                </activityIndicatorView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
                 <constraint firstItem="31k-c8-a4h" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="Lwg-od-AWJ"/>
+                <constraint firstItem="ySt-hn-yDi" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="PSh-BQ-s3P"/>
+                <constraint firstItem="ySt-hn-yDi" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="Trf-RD-YSi"/>
                 <constraint firstItem="31k-c8-a4h" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="vEj-jj-7Az"/>
             </constraints>
             <point key="canvasLocation" x="35.877862595419849" y="0.0"/>
