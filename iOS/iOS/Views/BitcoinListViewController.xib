@@ -21,39 +21,47 @@
             <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="MVn-Uz-2fZ">
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="MVn-Uz-2fZ">
                     <rect key="frame" x="0.0" y="221.66666666666669" width="393" height="630.33333333333326"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                 </tableView>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" image="btc-icon" translatesAutoresizingMaskIntoConstraints="NO" id="g1s-4J-mou">
-                    <rect key="frame" x="98" y="79" width="50" height="50"/>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="QOi-Md-E5X">
+                    <rect key="frame" x="16" y="59" width="361" height="100"/>
+                    <subviews>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" image="btc-icon" translatesAutoresizingMaskIntoConstraints="NO" id="g1s-4J-mou">
+                            <rect key="frame" x="31" y="0.0" width="299" height="46"/>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00.0000 Euros " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xC4-rf-yBv">
+                            <rect key="frame" x="92.333333333333329" y="54" width="176.33333333333337" height="46"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="26"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <gestureRecognizers/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="50" id="4ZJ-PM-VId"/>
-                        <constraint firstAttribute="width" constant="50" id="CWt-jC-bqB"/>
+                        <constraint firstAttribute="height" constant="100" id="brS-zU-hwl"/>
                     </constraints>
-                </imageView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00.0000 Euros " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xC4-rf-yBv">
-                    <rect key="frame" x="156" y="79" width="141.66666666666663" height="50"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
+                    <connections>
+                        <outletCollection property="gestureRecognizers" destination="eaU-sf-Voc" appends="YES" id="OS4-1Z-BKG"/>
+                    </connections>
+                </stackView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
-                <constraint firstItem="xC4-rf-yBv" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="20" id="5EG-3n-iWc"/>
-                <constraint firstItem="g1s-4J-mou" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="98" id="722-oa-JKR"/>
-                <constraint firstItem="MVn-Uz-2fZ" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="EZV-3a-FdE"/>
-                <constraint firstItem="MVn-Uz-2fZ" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="Ief-oa-Nfd"/>
-                <constraint firstItem="xC4-rf-yBv" firstAttribute="leading" secondItem="g1s-4J-mou" secondAttribute="trailing" constant="8" symbolic="YES" id="RDH-KO-ogP"/>
-                <constraint firstItem="g1s-4J-mou" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="20" id="cxM-58-EHJ"/>
-                <constraint firstAttribute="bottom" secondItem="MVn-Uz-2fZ" secondAttribute="bottom" id="drY-eY-SOj"/>
-                <constraint firstItem="MVn-Uz-2fZ" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.74" id="hZa-Te-i03"/>
-                <constraint firstItem="xC4-rf-yBv" firstAttribute="centerY" secondItem="g1s-4J-mou" secondAttribute="centerY" id="piD-3U-MYC"/>
+                <constraint firstItem="QOi-Md-E5X" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="7TP-Ht-Jbe"/>
+                <constraint firstItem="QOi-Md-E5X" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="VTw-XF-JXl"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="QOi-Md-E5X" secondAttribute="trailing" constant="16" id="ccN-dk-5jq"/>
             </constraints>
             <point key="canvasLocation" x="-118.32061068702289" y="20.422535211267608"/>
         </view>
+        <tapGestureRecognizer id="eaU-sf-Voc">
+            <connections>
+                <action selector="currentPriceTouch:" destination="-1" id="OOB-Br-vFh"/>
+            </connections>
+        </tapGestureRecognizer>
     </objects>
     <resources>
         <image name="btc-icon" width="299" height="300"/>

@@ -27,6 +27,10 @@ class BitcoinListViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
+    @IBAction func currentPriceTouch(_ sender: Any) {
+        navigateTo(date: Date())
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -66,7 +70,7 @@ class BitcoinListViewController: UIViewController {
             switch result {
             case .success(let price):
                 DispatchQueue.main.async {
-                    self.currentPriceLabel.text = "\(price.price) \(price.currency.description)"
+                    self.currentPriceLabel.text = "\(price.value) \(price.currency.description)"
                 }
             case .failure:
                 break
@@ -113,6 +117,17 @@ extension BitcoinListViewController: UITableViewDataSource, UITableViewDelegate 
         let currencyDetail = CurrencyDetailUseCase(url: url, client: URLSessionHTTPClient())
         
         let vc = BitcoinDetailViewController(currencyDetailUseCase: currencyDetail, selectedDate: price.date)
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    
+    private func navigateTo(date: Date) {
+        let stringURL = "https://api.coingecko.com/api/v3/coins/bitcoin/history?date=\(date.toString())"
+        
+        let url = URL(string: stringURL)!
+        let currencyDetail = CurrencyDetailUseCase(url: url, client: URLSessionHTTPClient())
+        
+        let vc = BitcoinDetailViewController(currencyDetailUseCase: currencyDetail, selectedDate: date)
         navigationController?.pushViewController(vc, animated: true)
     }
 }
