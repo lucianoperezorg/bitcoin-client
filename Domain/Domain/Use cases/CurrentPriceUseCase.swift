@@ -25,12 +25,12 @@ public struct Price {
     public let price: Double
     public let currency: Currency
 }
- 
+
 private struct Bitcon: Decodable {
-    let bitcoin: Price2
+    let bitcoin: CurrentPrice
 }
 
-public struct Price2: Decodable {
+public struct CurrentPrice: Decodable {
     public let current: Double
     
     enum CodingKeys: String, CodingKey {
@@ -38,38 +38,58 @@ public struct Price2: Decodable {
     }
 }
 
-public struct CurrentPrice {}
+
 public typealias CurrentPriceResult = Swift.Result<Price, Error>
 public protocol CurrentPriceUseCaseType {
-    func load(completion: @escaping (CurrentPriceResult) -> Void)
+    func startObserving()
+    func stopObserving()
+    var priceResult: ((CurrentPriceResult) -> Void)? { get set }
 }
 
 
 public final class CurrentPriceUseCase: CurrentPriceUseCaseType {
+    public var priceResult: ((CurrentPriceResult) -> Void)?
     private let url: URL
     private let client: HTTPClient
+    private var timer: Timer?
     
-    public init(url: URL, client: HTTPClient) {
+    public init(url: URL, client: HTTPClient, timer: Timer = Timer()) {
         self.url = url
         self.client = client
+        self.timer = timer
     }
-  
-    public func load(completion: @escaping (CurrentPriceResult) -> Void) {
+    
+    public func startObserving() {
+        guard timer == nil else { return }
+        scheduledTimer()
+        load()
+    }
+    
+    public func stopObserving() {
+        timer?.invalidate()
+        timer = nil
+    }
+    
+    
+    private func scheduledTimer() {
+        timer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(load), userInfo: nil, repeats: true)
+    }
+    
+    @objc private func load() {
         let urlRequest = URLRequest(url: url)
-        client.get(from: urlRequest) { result in
+        client.get(from: urlRequest) { [self] result in
             switch result {
-            case let .success(data, _):
+            case let .success((data, _)):
                 do {
-                    let d = try? JSONDecoder().decode(Bitcon.self, from: data)
-                    let price = Price(price: d!.bitcoin.current, currency: .EUR)
-                    completion(.success(price))
-                } catch {}
-            case .failure:
-                break
+                    let d = try JSONDecoder().decode(Bitcon.self, from: data)
+                    let price = Price(price: d.bitcoin.current, currency: .EUR)
+                    self.priceResult?(.success(price))
+                } catch {
+                    
+                }
+            case .failure(let error):
+                self.priceResult?(.failure(error))
             }
-            
         }
     }
-    
-    
 }

@@ -10,6 +10,7 @@ import HTTPNetwork
 
 public struct BitcoinPricesModel {
     public let price: Double
+    public let currency: Currency
     public let date: Date
 }
 
@@ -31,14 +32,14 @@ public final class HistoricalPricesUseCase: HistoricalPricesUseCaseType {
         let urlRequest = URLRequest(url: url)
         client.get(from: urlRequest) { result in
             switch result {
-            case let .success(data, _):
+            case let .success((data, _)):
                 do {
                     let d = try JSONDecoder().decode(Price.self, from: data)
                     var BitcoinPrices = d.prices.map {
                         let timeIntervalValue = Double($0[0])
                         let dateVal = TimeInterval(timeIntervalValue / 1000.0)
                         let date = Date(timeIntervalSince1970: TimeInterval(dateVal))
-                        return BitcoinPricesModel(price: $0[1], date: date)
+                        return BitcoinPricesModel(price: $0[1], currency: .EUR, date: date)
                     }
                     BitcoinPrices = BitcoinPrices.dropLast().sorted(by: { $0.date > $1.date })
                     completion(.success(BitcoinPrices))

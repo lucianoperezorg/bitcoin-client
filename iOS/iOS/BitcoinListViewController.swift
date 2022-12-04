@@ -10,14 +10,14 @@ import Domain
 import HTTPNetwork
 
 class BitcoinListViewController: UIViewController {
-    
+    var priceResult: ((CurrentPriceResult) -> Void)?
     @IBOutlet weak var historicalPricesTableView: UITableView!
     @IBOutlet weak var currentPriceLabel: UILabel!
     
     private var historiaclaPrice = [BitcoinPricesModel]()
     
     private let historicalPricesUseCase: HistoricalPricesUseCaseType
-    private let currentPrice: CurrentPriceUseCaseType
+    private var currentPrice: CurrentPriceUseCaseType
     
     init(historicalPrices: HistoricalPricesUseCaseType, currentPrice: CurrentPriceUseCaseType) {
         self.currentPrice = currentPrice
@@ -34,30 +34,37 @@ class BitcoinListViewController: UIViewController {
         historicalPricesTableView.delegate = self
         historicalPricesTableView.dataSource = self
         historicalPricesTableView.register(UITableViewCell.self, forCellReuseIdentifier: "cellId")
-       
+        
         self.loadCurrentPrice()
         self.loadHistoricalPrice()
+        
+        let notificationCenter = NotificationCenter.default
+        notificationCenter.addObserver(self, selector: #selector(appMovedToBackground), name: UIApplication.willResignActiveNotification, object: nil)
+    
+        notificationCenter.addObserver(self, selector: #selector(appBecameActive), name: UIApplication.willEnterForegroundNotification, object: nil)
     }
-    var timer: Timer? = Timer()
+
+    @objc func appMovedToBackground() {
+        self.currentPrice.stopObserving()
+    }
+    
+    @objc func appBecameActive() {
+        self.currentPrice.startObserving()
+    }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.scheduledTimerWithTimeInterval()
-    }
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        timer?.invalidate()
-        timer = nil
+        self.currentPrice.startObserving()
     }
     
-    func scheduledTimerWithTimeInterval(){
-        timer = Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(loadCurrentPrice), userInfo: nil, repeats: true)
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        self.currentPrice.stopObserving()
     }
     
     @objc
     private func loadCurrentPrice() {
-        print("load currenct")
-        currentPrice.load { result in
+        currentPrice.priceResult = { result in
             switch result {
             case .success(let price):
                 DispatchQueue.main.async {
@@ -94,7 +101,7 @@ extension BitcoinListViewController: UITableViewDataSource, UITableViewDelegate 
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellId", for: indexPath)
         let price = historiaclaPrice[indexPath.row]
         
-        cell.textLabel?.text = "Eur \(Int(price.price)) - on:  \(price.date.toString())"
+        cell.textLabel?.text = "\(Int(price.price)) \(price.currency.description) - \(price.date.toString())"
         return cell
     }
     
@@ -118,7 +125,7 @@ extension BitcoinListViewController: UITableViewDataSource, UITableViewDelegate 
 extension Date {
     func toString() -> String {
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "YYYY/MM/dd"
+        dateFormatter.dateFormat = "dd-MM-YYYY"
         return dateFormatter.string(from: self)
     }
 }
