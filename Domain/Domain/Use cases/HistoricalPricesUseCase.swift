@@ -29,8 +29,7 @@ public final class HistoricalPricesUseCase: HistoricalPricesUseCaseType {
     }
     
     public func load(completion: @escaping (HistoricalPricesResult) -> Void) {
-        let urlRequest = URLRequest(url: url)
-        client.get(from: urlRequest) { result in
+        client.get(from: url) { result in
             switch result {
             case let .success((data, _)):
                 do {

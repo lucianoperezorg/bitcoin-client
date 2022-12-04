@@ -76,8 +76,7 @@ public final class CurrentPriceUseCase: CurrentPriceUseCaseType {
     }
     
     @objc private func load() {
-        let urlRequest = URLRequest(url: url)
-        client.get(from: urlRequest) { [self] result in
+        client.get(from: url) { [self] result in
             switch result {
             case let .success((data, _)):
                 do {

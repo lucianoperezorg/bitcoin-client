@@ -24,8 +24,7 @@ public class CurrencyDetailUseCase: CurrencyDetailUseCaseType {
     }
     
     public func currencyDetail(completion: @escaping (CurrencyDetailResult) -> Void) {
-        let urlRequest = URLRequest(url: url)
-        client.get(from: urlRequest) { result in
+        client.get(from: url) { result in
             switch result {
             case let .success((data, response)):
                 

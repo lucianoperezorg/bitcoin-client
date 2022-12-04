@@ -31,8 +31,8 @@ final class URLSessionHTTPClientTests: XCTestCase {
             }
             
             URLPrototolStub.stub(url: url, data: nil, response: nil, error: nil)
-            let urlRequest = URLRequest(url: url)
-            makeSUT().get(from: urlRequest) { _ in }
+            
+            makeSUT().get(from: url) { _ in }
             
             wait(for: [exp], timeout: 1.0)
         }
@@ -118,8 +118,7 @@ final class URLSessionHTTPClientTests: XCTestCase {
             
             let exp = expectation(description: "Wait for closure to complete")
             var expectedResult: HTTPClientResult!
-            let urlrequest = URLRequest(url: anyUrl())
-            makeSUT().get(from: urlrequest) { result in
+            makeSUT().get(from: anyUrl()) { result in
                 expectedResult = result
                 exp.fulfill()
             }
