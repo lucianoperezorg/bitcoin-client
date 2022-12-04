@@ -10,11 +10,11 @@
 		DE556F56293BC77600100808 /* Domain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE556F4D293BC77600100808 /* Domain.framework */; };
 		DE556F5B293BC77600100808 /* DomainTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE556F5A293BC77600100808 /* DomainTests.swift */; };
 		DE556F5C293BC77600100808 /* Domain.h in Headers */ = {isa = PBXBuildFile; fileRef = DE556F50293BC77600100808 /* Domain.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		DE557001293C26D200100808 /* UseCases.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE557000293C26D200100808 /* UseCases.swift */; };
 		DE55700A293C2B4800100808 /* HistoricalPricesUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE557009293C2B4800100808 /* HistoricalPricesUseCase.swift */; };
 		DE557016293C2FED00100808 /* HTTPNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE557015293C2FED00100808 /* HTTPNetwork.framework */; };
 		DE557017293C2FED00100808 /* HTTPNetwork.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DE557015293C2FED00100808 /* HTTPNetwork.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DE557021293C336700100808 /* CurrentPriceUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE557020293C336700100808 /* CurrentPriceUseCase.swift */; };
+		DE55706F293CD1BC00100808 /* CurrencyDetailUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE55706E293CD1BC00100808 /* CurrencyDetailUseCase.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,11 +46,11 @@
 		DE556F50293BC77600100808 /* Domain.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Domain.h; sourceTree = "<group>"; };
 		DE556F55293BC77600100808 /* DomainTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DomainTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE556F5A293BC77600100808 /* DomainTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DomainTests.swift; sourceTree = "<group>"; };
-		DE557000293C26D200100808 /* UseCases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UseCases.swift; sourceTree = "<group>"; };
 		DE557005293C2A7D00100808 /* HTTPNetwork.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = HTTPNetwork.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE557009293C2B4800100808 /* HistoricalPricesUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoricalPricesUseCase.swift; sourceTree = "<group>"; };
 		DE557015293C2FED00100808 /* HTTPNetwork.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = HTTPNetwork.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE557020293C336700100808 /* CurrentPriceUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentPriceUseCase.swift; sourceTree = "<group>"; };
+		DE55706E293CD1BC00100808 /* CurrencyDetailUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyDetailUseCase.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,9 +113,9 @@
 		DE556FFF293C268000100808 /* Use cases */ = {
 			isa = PBXGroup;
 			children = (
-				DE557000293C26D200100808 /* UseCases.swift */,
 				DE557009293C2B4800100808 /* HistoricalPricesUseCase.swift */,
 				DE557020293C336700100808 /* CurrentPriceUseCase.swift */,
+				DE55706E293CD1BC00100808 /* CurrencyDetailUseCase.swift */,
 			);
 			path = "Use cases";
 			sourceTree = "<group>";
@@ -247,7 +247,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DE557001293C26D200100808 /* UseCases.swift in Sources */,
+				DE55706F293CD1BC00100808 /* CurrencyDetailUseCase.swift in Sources */,
 				DE557021293C336700100808 /* CurrentPriceUseCase.swift in Sources */,
 				DE55700A293C2B4800100808 /* HistoricalPricesUseCase.swift in Sources */,
 			);

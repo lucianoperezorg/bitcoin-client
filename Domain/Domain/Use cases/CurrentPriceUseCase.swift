@@ -20,6 +20,7 @@ public enum Currency: String {
         }
     }
 }
+
 public struct Price {
     public let price: Double
     public let currency: Currency
@@ -36,6 +37,7 @@ public struct Price2: Decodable {
         case current = "eur"
     }
 }
+
 public struct CurrentPrice {}
 public typealias CurrentPriceResult = Swift.Result<Price, Error>
 public protocol CurrentPriceUseCaseType {

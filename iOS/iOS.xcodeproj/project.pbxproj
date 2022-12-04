@@ -132,10 +132,10 @@
 				DE557037293CCE2700100808 /* Assets.xcassets */,
 				DE557039293CCE2700100808 /* LaunchScreen.storyboard */,
 				DE55703C293CCE2700100808 /* Info.plist */,
-				DE557069293CCF1C00100808 /* BitcoinDetailViewController.swift */,
-				DE557067293CCF1C00100808 /* BitcoinDetailViewController.xib */,
 				DE557068293CCF1C00100808 /* BitcoinListViewController.swift */,
 				DE557066293CCF1C00100808 /* BitcoinListViewController.xib */,
+				DE557069293CCF1C00100808 /* BitcoinDetailViewController.swift */,
+				DE557067293CCF1C00100808 /* BitcoinDetailViewController.xib */,
 			);
 			path = iOS;
 			sourceTree = "<group>";

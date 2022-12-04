@@ -7,6 +7,7 @@
 
 import UIKit
 import Domain
+import HTTPNetwork
 
 class BitcoinListViewController: UIViewController {
     
@@ -33,7 +34,29 @@ class BitcoinListViewController: UIViewController {
         historicalPricesTableView.delegate = self
         historicalPricesTableView.dataSource = self
         historicalPricesTableView.register(UITableViewCell.self, forCellReuseIdentifier: "cellId")
-        
+       
+        self.loadCurrentPrice()
+        self.loadHistoricalPrice()
+    }
+    var timer: Timer? = Timer()
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.scheduledTimerWithTimeInterval()
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        timer?.invalidate()
+        timer = nil
+    }
+    
+    func scheduledTimerWithTimeInterval(){
+        timer = Timer.scheduledTimer(timeInterval: 60, target: self, selector: #selector(loadCurrentPrice), userInfo: nil, repeats: true)
+    }
+    
+    @objc
+    private func loadCurrentPrice() {
+        print("load currenct")
         currentPrice.load { result in
             switch result {
             case .success(let price):
@@ -44,7 +67,9 @@ class BitcoinListViewController: UIViewController {
                 break
             }
         }
-        
+    }
+    
+    private func loadHistoricalPrice() {
         historicalPricesUseCase.load { result in
             switch result {
             case .success(let prices):
@@ -75,7 +100,15 @@ extension BitcoinListViewController: UITableViewDataSource, UITableViewDelegate 
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let price = historiaclaPrice[indexPath.row]
-        let vc = BitcoinDetailViewController(date: price.date)
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd-MM-yyyy"
+        let stringDate = dateFormatter.string(from: price.date)
+        let stringURL = "https://api.coingecko.com/api/v3/coins/bitcoin/history?date=\(stringDate)&localization=false"
+        
+        let url = URL(string: stringURL)!
+        let currencyDetail = CurrencyDetailUseCase(url: url, client: URLSessionHTTPClient())
+        
+        let vc = BitcoinDetailViewController(currencyDetailUseCase: currencyDetail)
         navigationController?.pushViewController(vc, animated: true)
     }
 }
