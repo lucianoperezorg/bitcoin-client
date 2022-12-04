@@ -8,47 +8,16 @@
 import Foundation
 import HTTPNetwork
 
-
-public enum Currency: String {
-    case EUR, USD,GBP
-    
-    public var description: String {
-        switch self {
-        case .EUR: return "EUR"
-        case .USD: return "USD"
-        case .GBP: return "GBP"
-        }
-    }
-}
-
-public struct Price {
-    public let price: Double
-    public let currency: Currency
-}
-
-private struct Bitcon: Decodable {
-    let bitcoin: CurrentPrice
-}
-
-public struct CurrentPrice: Decodable {
-    public let current: Double
-    
-    enum CodingKeys: String, CodingKey {
-        case current = "eur"
-    }
-}
-
-
 public typealias CurrentPriceResult = Swift.Result<Price, Error>
 public protocol CurrentPriceUseCaseType {
     func startObserving()
     func stopObserving()
-    var priceResult: ((CurrentPriceResult) -> Void)? { get set }
+    var priceResultHandler: ((CurrentPriceResult) -> Void)? { get set }
 }
 
 
 public final class CurrentPriceUseCase: CurrentPriceUseCaseType {
-    public var priceResult: ((CurrentPriceResult) -> Void)?
+    public var priceResultHandler: ((CurrentPriceResult) -> Void)?
     private let url: URL
     private let client: HTTPClient
     private var timer: Timer?
@@ -80,15 +49,35 @@ public final class CurrentPriceUseCase: CurrentPriceUseCaseType {
             switch result {
             case let .success((data, _)):
                 do {
-                    let d = try JSONDecoder().decode(Bitcon.self, from: data)
-                    let price = Price(price: d.bitcoin.current, currency: .EUR)
-                    self.priceResult?(.success(price))
+                    let rootPrice = try JSONDecoder().decode(RemoteCurrentPrice.self, from: data)
+                    let price = Price(price: rootPrice.price.current, currency: .EUR)
+                    self.priceResultHandler?(.success(price))
                 } catch {
                     
                 }
             case .failure(let error):
-                self.priceResult?(.failure(error))
+                self.priceResultHandler?(.failure(error))
             }
         }
+    }
+}
+
+
+
+
+//TODO: move this from here
+private struct RemoteCurrentPrice: Decodable {
+    let price: RemotePrice
+    
+    enum CodingKeys: String, CodingKey {
+        case price = "bitcoin"
+    }
+}
+
+public struct RemotePrice: Decodable {
+    public let current: Double
+    
+    enum CodingKeys: String, CodingKey {
+        case current = "eur"
     }
 }

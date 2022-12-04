@@ -15,6 +15,9 @@
 		DE557017293C2FED00100808 /* HTTPNetwork.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DE557015293C2FED00100808 /* HTTPNetwork.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DE557021293C336700100808 /* CurrentPriceUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE557020293C336700100808 /* CurrentPriceUseCase.swift */; };
 		DE55706F293CD1BC00100808 /* CurrencyDetailUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE55706E293CD1BC00100808 /* CurrencyDetailUseCase.swift */; };
+		DE557071293D27F300100808 /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE557070293D27F300100808 /* Currency.swift */; };
+		DE557073293D281100100808 /* Price.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE557072293D281100100808 /* Price.swift */; };
+		DE557075293D291000100808 /* HistoricalPrice.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE557074293D291000100808 /* HistoricalPrice.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +54,9 @@
 		DE557015293C2FED00100808 /* HTTPNetwork.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = HTTPNetwork.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE557020293C336700100808 /* CurrentPriceUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentPriceUseCase.swift; sourceTree = "<group>"; };
 		DE55706E293CD1BC00100808 /* CurrencyDetailUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyDetailUseCase.swift; sourceTree = "<group>"; };
+		DE557070293D27F300100808 /* Currency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Currency.swift; sourceTree = "<group>"; };
+		DE557072293D281100100808 /* Price.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Price.swift; sourceTree = "<group>"; };
+		DE557074293D291000100808 /* HistoricalPrice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoricalPrice.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,6 +129,9 @@
 		DE557002293C27AD00100808 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				DE557070293D27F300100808 /* Currency.swift */,
+				DE557072293D281100100808 /* Price.swift */,
+				DE557074293D291000100808 /* HistoricalPrice.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -247,9 +256,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DE557071293D27F300100808 /* Currency.swift in Sources */,
 				DE55706F293CD1BC00100808 /* CurrencyDetailUseCase.swift in Sources */,
 				DE557021293C336700100808 /* CurrentPriceUseCase.swift in Sources */,
+				DE557073293D281100100808 /* Price.swift in Sources */,
 				DE55700A293C2B4800100808 /* HistoricalPricesUseCase.swift in Sources */,
+				DE557075293D291000100808 /* HistoricalPrice.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

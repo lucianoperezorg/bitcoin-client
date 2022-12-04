@@ -8,13 +8,7 @@
 import Foundation
 import HTTPNetwork
 
-public struct BitcoinPricesModel {
-    public let price: Double
-    public let currency: Currency
-    public let date: Date
-}
-
-public typealias HistoricalPricesResult = Swift.Result<[BitcoinPricesModel], Error>
+public typealias HistoricalPricesResult = Swift.Result<[HistoricalPrice], Error>
 public protocol HistoricalPricesUseCaseType {
     func load(completion: @escaping (HistoricalPricesResult) -> Void)
 }
@@ -33,25 +27,27 @@ public final class HistoricalPricesUseCase: HistoricalPricesUseCaseType {
             switch result {
             case let .success((data, _)):
                 do {
-                    let d = try JSONDecoder().decode(Price.self, from: data)
-                    var BitcoinPrices = d.prices.map {
+                    let remotePrices = try JSONDecoder().decode(RemotePrices.self, from: data)
+                    var BitcoinPrices = remotePrices.prices.map {
                         let timeIntervalValue = Double($0[0])
                         let dateVal = TimeInterval(timeIntervalValue / 1000.0)
                         let date = Date(timeIntervalSince1970: TimeInterval(dateVal))
-                        return BitcoinPricesModel(price: $0[1], currency: .EUR, date: date)
+                        return HistoricalPrice(price: $0[1], currency: .EUR, date: date)
                     }
                     BitcoinPrices = BitcoinPrices.dropLast().sorted(by: { $0.date > $1.date })
                     completion(.success(BitcoinPrices))
                 } catch  {
                     print(error)
                 }
-            case let .failure(_):
-                break
+            case .failure(let error):
+                completion(.failure(error))
             }
         }
     }
-    
-    private struct Price: Decodable {
-        let prices: [[Double]]
-    }
+   
+}
+
+//TODO: move this from here
+private struct RemotePrices: Decodable {
+    let prices: [[Double]]
 }

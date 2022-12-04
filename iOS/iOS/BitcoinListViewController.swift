@@ -14,7 +14,7 @@ class BitcoinListViewController: UIViewController {
     @IBOutlet weak var historicalPricesTableView: UITableView!
     @IBOutlet weak var currentPriceLabel: UILabel!
     
-    private var historiaclaPrice = [BitcoinPricesModel]()
+    private var historiaclaPrice = [HistoricalPrice]()
     
     private let historicalPricesUseCase: HistoricalPricesUseCaseType
     private var currentPrice: CurrentPriceUseCaseType
@@ -64,7 +64,7 @@ class BitcoinListViewController: UIViewController {
     
     @objc
     private func loadCurrentPrice() {
-        currentPrice.priceResult = { result in
+        currentPrice.priceResultHandler = { result in
             switch result {
             case .success(let price):
                 DispatchQueue.main.async {

@@ -26,31 +26,40 @@ public class CurrencyDetailUseCase: CurrencyDetailUseCaseType {
     public func currencyDetail(completion: @escaping (CurrencyDetailResult) -> Void) {
         client.get(from: url) { result in
             switch result {
-            case let .success((data, response)):
-                
-                
+            case let .success((data, _)):
                 do {
-                    let d = try? JSONDecoder().decode(marketData.self, from: data)
-                    let miau = Price(price: d!.market_data.current_price.usd, currency: .USD)
-                    let miau2 = Price(price: d!.market_data.current_price.eur, currency: .EUR)
-                    let miau3 = Price(price: d!.market_data.current_price.gbp, currency: .GBP)
-                    let arrayPrices = [miau, miau2,miau3]
-                    completion(.success(arrayPrices))
+                    let marketData = try JSONDecoder().decode(MarketData.self, from: data)
+                    let usd = Price(price: marketData.currentPrice.prices.usd, currency: .USD)
+                    let eur = Price(price: marketData.currentPrice.prices.eur, currency: .EUR)
+                    let gbp = Price(price: marketData.currentPrice.prices.gbp, currency: .GBP)
+                    let prices = [usd, eur, gbp]
+                    completion(.success(prices))
         
                 } catch {}
                 
-            case .failure:
-                break
+            case .failure(let error):
+                completion(.failure(error))
             }
         }
     }
     
-    private struct  marketData : Decodable {
-        let market_data: CurrentPrice
+    
+    
+    //TODO: move this from here
+    private struct MarketData : Decodable {
+        let currentPrice: CurrentPrice
+        
+        enum CodingKeys: String, CodingKey {
+            case currentPrice = "market_data"
+        }
     }
     
     private struct CurrentPrice : Decodable {
-        let current_price: Prices
+        let prices: Prices
+        
+        enum CodingKeys: String, CodingKey {
+            case prices = "current_price"
+        }
     }
     
     private struct Prices: Decodable {
@@ -58,6 +67,4 @@ public class CurrencyDetailUseCase: CurrencyDetailUseCaseType {
         let eur: Double
         let gbp: Double
     }
-    
-    
 }
