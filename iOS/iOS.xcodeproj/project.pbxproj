@@ -21,6 +21,7 @@
 		DE55706B293CCF1C00100808 /* BitcoinDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = DE557067293CCF1C00100808 /* BitcoinDetailViewController.xib */; };
 		DE55706C293CCF1C00100808 /* BitcoinListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE557068293CCF1C00100808 /* BitcoinListViewController.swift */; };
 		DE55706D293CCF1C00100808 /* BitcoinDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE557069293CCF1C00100808 /* BitcoinDetailViewController.swift */; };
+		DE557085293D494100100808 /* Date+toString.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE557084293D494100100808 /* Date+toString.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,6 +73,7 @@
 		DE557067293CCF1C00100808 /* BitcoinDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BitcoinDetailViewController.xib; sourceTree = "<group>"; };
 		DE557068293CCF1C00100808 /* BitcoinListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BitcoinListViewController.swift; sourceTree = "<group>"; };
 		DE557069293CCF1C00100808 /* BitcoinDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BitcoinDetailViewController.swift; sourceTree = "<group>"; };
+		DE557084293D494100100808 /* Date+toString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+toString.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,14 +127,12 @@
 		DE55702D293CCE2600100808 /* iOS */ = {
 			isa = PBXGroup;
 			children = (
+				DE557083293D492500100808 /* Extensions */,
+				DE557086293D4E8400100808 /* Views */,
 				DE55702E293CCE2600100808 /* AppDelegate.swift */,
 				DE557037293CCE2700100808 /* Assets.xcassets */,
 				DE557039293CCE2700100808 /* LaunchScreen.storyboard */,
 				DE55703C293CCE2700100808 /* Info.plist */,
-				DE557068293CCF1C00100808 /* BitcoinListViewController.swift */,
-				DE557066293CCF1C00100808 /* BitcoinListViewController.xib */,
-				DE557069293CCF1C00100808 /* BitcoinDetailViewController.swift */,
-				DE557067293CCF1C00100808 /* BitcoinDetailViewController.xib */,
 			);
 			path = iOS;
 			sourceTree = "<group>";
@@ -161,6 +161,25 @@
 				DE55705F293CCEFE00100808 /* Domain.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		DE557083293D492500100808 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				DE557084293D494100100808 /* Date+toString.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		DE557086293D4E8400100808 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				DE557068293CCF1C00100808 /* BitcoinListViewController.swift */,
+				DE557066293CCF1C00100808 /* BitcoinListViewController.xib */,
+				DE557069293CCF1C00100808 /* BitcoinDetailViewController.swift */,
+				DE557067293CCF1C00100808 /* BitcoinDetailViewController.xib */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -297,6 +316,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DE55706D293CCF1C00100808 /* BitcoinDetailViewController.swift in Sources */,
+				DE557085293D494100100808 /* Date+toString.swift in Sources */,
 				DE55702F293CCE2600100808 /* AppDelegate.swift in Sources */,
 				DE55706C293CCF1C00100808 /* BitcoinListViewController.swift in Sources */,
 			);

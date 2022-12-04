@@ -10,12 +10,10 @@ import Domain
 import HTTPNetwork
 
 class BitcoinListViewController: UIViewController {
-    var priceResult: ((CurrentPriceResult) -> Void)?
     @IBOutlet weak var historicalPricesTableView: UITableView!
     @IBOutlet weak var currentPriceLabel: UILabel!
     
     private var historiaclaPrice = [HistoricalPrice]()
-    
     private let historicalPricesUseCase: HistoricalPricesUseCaseType
     private var currentPrice: CurrentPriceUseCaseType
     
@@ -31,9 +29,10 @@ class BitcoinListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        historicalPricesTableView.delegate = self
-        historicalPricesTableView.dataSource = self
-        historicalPricesTableView.register(UITableViewCell.self, forCellReuseIdentifier: "cellId")
+        
+        self.historicalPricesTableView.delegate = self
+        self.historicalPricesTableView.dataSource = self
+        self.historicalPricesTableView.register(UITableViewCell.self, forCellReuseIdentifier: "cellId")
         
         self.loadCurrentPrice()
         self.loadHistoricalPrice()
@@ -62,8 +61,7 @@ class BitcoinListViewController: UIViewController {
         self.currentPrice.stopObserving()
     }
     
-    @objc
-    private func loadCurrentPrice() {
+    @objc private func loadCurrentPrice() {
         currentPrice.priceResultHandler = { result in
             switch result {
             case .success(let price):
@@ -106,27 +104,15 @@ extension BitcoinListViewController: UITableViewDataSource, UITableViewDelegate 
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let price = historiaclaPrice[indexPath.row]
         tableView.deselectRow(at: indexPath, animated: true)
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd-MM-yyyy"
-        let stringDate = dateFormatter.string(from: price.date)
-        let stringURL = "https://api.coingecko.com/api/v3/coins/bitcoin/history?date=\(stringDate)&localization=false"
+
+        let price = historiaclaPrice[indexPath.row]
+        let stringURL = "https://api.coingecko.com/api/v3/coins/bitcoin/history?date=\(price.date.toString())"
         
         let url = URL(string: stringURL)!
         let currencyDetail = CurrencyDetailUseCase(url: url, client: URLSessionHTTPClient())
         
-        let vc = BitcoinDetailViewController(currencyDetailUseCase: currencyDetail)
+        let vc = BitcoinDetailViewController(currencyDetailUseCase: currencyDetail, selectedDate: price.date)
         navigationController?.pushViewController(vc, animated: true)
-    }
-}
-
-
-//TODO: move this from here
-extension Date {
-    func toString() -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd-MM-YYYY"
-        return dateFormatter.string(from: self)
     }
 }
