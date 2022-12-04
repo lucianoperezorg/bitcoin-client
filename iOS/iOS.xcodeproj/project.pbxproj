@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		DE55702F293CCE2600100808 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE55702E293CCE2600100808 /* AppDelegate.swift */; };
-		DE557036293CCE2600100808 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DE557034293CCE2600100808 /* Main.storyboard */; };
 		DE557038293CCE2700100808 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DE557037293CCE2700100808 /* Assets.xcassets */; };
 		DE55703B293CCE2700100808 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DE557039293CCE2700100808 /* LaunchScreen.storyboard */; };
 		DE557046293CCE2700100808 /* iOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE557045293CCE2700100808 /* iOSTests.swift */; };
@@ -59,7 +58,6 @@
 /* Begin PBXFileReference section */
 		DE55702B293CCE2600100808 /* iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE55702E293CCE2600100808 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		DE557035293CCE2600100808 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		DE557037293CCE2700100808 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DE55703A293CCE2700100808 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DE55703C293CCE2700100808 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -128,7 +126,6 @@
 			isa = PBXGroup;
 			children = (
 				DE55702E293CCE2600100808 /* AppDelegate.swift */,
-				DE557034293CCE2600100808 /* Main.storyboard */,
 				DE557037293CCE2700100808 /* Assets.xcassets */,
 				DE557039293CCE2700100808 /* LaunchScreen.storyboard */,
 				DE55703C293CCE2700100808 /* Info.plist */,
@@ -274,7 +271,6 @@
 				DE55703B293CCE2700100808 /* LaunchScreen.storyboard in Resources */,
 				DE55706A293CCF1C00100808 /* BitcoinListViewController.xib in Resources */,
 				DE557038293CCE2700100808 /* Assets.xcassets in Resources */,
-				DE557036293CCE2600100808 /* Main.storyboard in Resources */,
 				DE55706B293CCF1C00100808 /* BitcoinDetailViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -339,14 +335,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		DE557034293CCE2600100808 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DE557035293CCE2600100808 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		DE557039293CCE2700100808 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (

@@ -107,6 +107,7 @@ extension BitcoinListViewController: UITableViewDataSource, UITableViewDelegate 
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let price = historiaclaPrice[indexPath.row]
+        tableView.deselectRow(at: indexPath, animated: true)
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd-MM-yyyy"
         let stringDate = dateFormatter.string(from: price.date)

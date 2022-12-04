@@ -15,13 +15,13 @@ public protocol CurrentPriceUseCaseType {
     var priceResultHandler: ((CurrentPriceResult) -> Void)? { get set }
 }
 
-
 public final class CurrentPriceUseCase: CurrentPriceUseCaseType {
-    public var priceResultHandler: ((CurrentPriceResult) -> Void)?
     private let url: URL
     private let client: HTTPClient
     private var timer: Timer?
-    
+
+    public var priceResultHandler: ((CurrentPriceResult) -> Void)?
+
     public init(url: URL, client: HTTPClient, timer: Timer = Timer()) {
         self.url = url
         self.client = client
@@ -31,7 +31,7 @@ public final class CurrentPriceUseCase: CurrentPriceUseCaseType {
     public func startObserving() {
         guard timer == nil else { return }
         scheduledTimer()
-        load()
+        loadCurrentPrice()
     }
     
     public func stopObserving() {
@@ -39,22 +39,17 @@ public final class CurrentPriceUseCase: CurrentPriceUseCaseType {
         timer = nil
     }
     
-    
+    private var FREQUENCY: TimeInterval { return 60 }
     private func scheduledTimer() {
-        timer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(load), userInfo: nil, repeats: true)
+        timer = Timer.scheduledTimer(timeInterval: FREQUENCY, target: self, selector: #selector(loadCurrentPrice), userInfo: nil, repeats: true)
     }
     
-    @objc private func load() {
-        client.get(from: url) { [self] result in
+    @objc private func loadCurrentPrice() {
+        client.get(from: url) { [weak self] result in
+            guard let self = self else { return }
             switch result {
-            case let .success((data, _)):
-                do {
-                    let rootPrice = try JSONDecoder().decode(RemoteCurrentPrice.self, from: data)
-                    let price = Price(price: rootPrice.price.current, currency: .EUR)
-                    self.priceResultHandler?(.success(price))
-                } catch {
-                    
-                }
+            case let .success((data, response)):
+                self.priceResultHandler?(CurrentPriceUseCase.map(data, response: response))
             case .failure(let error):
                 self.priceResultHandler?(.failure(error))
             }
@@ -62,22 +57,15 @@ public final class CurrentPriceUseCase: CurrentPriceUseCaseType {
     }
 }
 
-
-
-
-//TODO: move this from here
-private struct RemoteCurrentPrice: Decodable {
-    let price: RemotePrice
-    
-    enum CodingKeys: String, CodingKey {
-        case price = "bitcoin"
+private extension CurrentPriceUseCase {
+    static func map(_ data: Data, response: URLResponse) -> CurrentPriceResult {
+        do {
+            let rootPrice = try JSONDecoder().decode(RemoteCurrentPrice.self, from: data)
+            let price = Price(price: rootPrice.price.current, currency: .EUR)
+            return .success(price)
+        } catch {
+            return .failure(error)
+        }
     }
 }
 
-public struct RemotePrice: Decodable {
-    public let current: Double
-    
-    enum CodingKeys: String, CodingKey {
-        case current = "eur"
-    }
-}

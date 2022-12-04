@@ -18,6 +18,10 @@
 		DE557071293D27F300100808 /* Currency.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE557070293D27F300100808 /* Currency.swift */; };
 		DE557073293D281100100808 /* Price.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE557072293D281100100808 /* Price.swift */; };
 		DE557075293D291000100808 /* HistoricalPrice.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE557074293D291000100808 /* HistoricalPrice.swift */; };
+		DE55707B293D322C00100808 /* RemoteCurrentPrice.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE55707A293D322C00100808 /* RemoteCurrentPrice.swift */; };
+		DE55707D293D325C00100808 /* RemotePrices.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE55707C293D325C00100808 /* RemotePrices.swift */; };
+		DE55707F293D32CD00100808 /* HistoryData.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE55707E293D32CD00100808 /* HistoryData.swift */; };
+		DE557082293D3DE500100808 /* Collection+SafeSubscript.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE557081293D3DE500100808 /* Collection+SafeSubscript.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +61,10 @@
 		DE557070293D27F300100808 /* Currency.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Currency.swift; sourceTree = "<group>"; };
 		DE557072293D281100100808 /* Price.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Price.swift; sourceTree = "<group>"; };
 		DE557074293D291000100808 /* HistoricalPrice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoricalPrice.swift; sourceTree = "<group>"; };
+		DE55707A293D322C00100808 /* RemoteCurrentPrice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteCurrentPrice.swift; sourceTree = "<group>"; };
+		DE55707C293D325C00100808 /* RemotePrices.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemotePrices.swift; sourceTree = "<group>"; };
+		DE55707E293D32CD00100808 /* HistoryData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryData.swift; sourceTree = "<group>"; };
+		DE557081293D3DE500100808 /* Collection+SafeSubscript.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Collection+SafeSubscript.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -101,6 +109,8 @@
 		DE556F4F293BC77600100808 /* Domain */ = {
 			isa = PBXGroup;
 			children = (
+				DE557080293D3DAF00100808 /* Helper */,
+				DE557079293D31EF00100808 /* Remote entities */,
 				DE557002293C27AD00100808 /* Model */,
 				DE556FFF293C268000100808 /* Use cases */,
 				DE556F50293BC77600100808 /* Domain.h */,
@@ -143,6 +153,24 @@
 				DE557005293C2A7D00100808 /* HTTPNetwork.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		DE557079293D31EF00100808 /* Remote entities */ = {
+			isa = PBXGroup;
+			children = (
+				DE55707A293D322C00100808 /* RemoteCurrentPrice.swift */,
+				DE55707C293D325C00100808 /* RemotePrices.swift */,
+				DE55707E293D32CD00100808 /* HistoryData.swift */,
+			);
+			path = "Remote entities";
+			sourceTree = "<group>";
+		};
+		DE557080293D3DAF00100808 /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				DE557081293D3DE500100808 /* Collection+SafeSubscript.swift */,
+			);
+			path = Helper;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -260,8 +288,12 @@
 				DE55706F293CD1BC00100808 /* CurrencyDetailUseCase.swift in Sources */,
 				DE557021293C336700100808 /* CurrentPriceUseCase.swift in Sources */,
 				DE557073293D281100100808 /* Price.swift in Sources */,
+				DE557082293D3DE500100808 /* Collection+SafeSubscript.swift in Sources */,
 				DE55700A293C2B4800100808 /* HistoricalPricesUseCase.swift in Sources */,
+				DE55707B293D322C00100808 /* RemoteCurrentPrice.swift in Sources */,
 				DE557075293D291000100808 /* HistoricalPrice.swift in Sources */,
+				DE55707D293D325C00100808 /* RemotePrices.swift in Sources */,
+				DE55707F293D32CD00100808 /* HistoryData.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

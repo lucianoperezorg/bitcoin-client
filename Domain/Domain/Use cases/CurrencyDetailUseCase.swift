@@ -33,13 +33,12 @@ public class CurrencyDetailUseCase: CurrencyDetailUseCaseType {
             }
         }
     }
-    
 }
 
-fileprivate extension CurrencyDetailUseCase {
-    private static func map(_ data: Data, _ response: HTTPURLResponse) -> CurrencyDetailResult {
+private extension CurrencyDetailUseCase {
+    static func map(_ data: Data, _ response: HTTPURLResponse) -> CurrencyDetailResult {
         do {
-            let marketData = try JSONDecoder().decode(MarketData.self, from: data)
+            let marketData = try JSONDecoder().decode(HistoryData.self, from: data)
             return .success(marketData.toModel())
         } catch {
             return .failure(error)
@@ -47,37 +46,11 @@ fileprivate extension CurrencyDetailUseCase {
     }
 }
 
-private extension MarketData {
+fileprivate extension HistoryData {
     func toModel() -> [Price] {
         let usd = Price(price: self.currentPrice.prices.usd, currency: .USD)
         let eur = Price(price: self.currentPrice.prices.eur, currency: .EUR)
         let gbp = Price(price: self.currentPrice.prices.gbp, currency: .GBP)
         return [usd, eur, gbp]
     }
-}
-
-
-
-
-//TODO: move this from here
-private struct MarketData : Decodable {
-    let currentPrice: CurrentPrice
-    
-    enum CodingKeys: String, CodingKey {
-        case currentPrice = "market_data"
-    }
-}
-
-private struct CurrentPrice : Decodable {
-    let prices: Prices
-    
-    enum CodingKeys: String, CodingKey {
-        case prices = "current_price"
-    }
-}
-
-private struct Prices: Decodable {
-    let usd: Double
-    let eur: Double
-    let gbp: Double
 }
