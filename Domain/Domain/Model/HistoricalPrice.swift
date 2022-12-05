@@ -7,8 +7,14 @@
 
 import Foundation
 
-public struct HistoricalPrice {
+public struct HistoricalPrice: Equatable {
     public let price: Double
     public let currency: Currency
     public let date: Date
+    
+    public init(price: Double, currency: Currency, date: Date) {
+        self.price = price
+        self.currency = currency
+        self.date = date
+    }
 }

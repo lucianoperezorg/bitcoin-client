@@ -21,29 +21,35 @@ public final class HistoricalPricesUseCase: HistoricalPricesUseCaseType {
         self.url = url
         self.client = client
     }
-    
+    private  var OK_200: Int { return 200 }
     public func load(completion: @escaping (HistoricalPricesResult) -> Void) {
         client.get(from: url) { result in
             switch result {
             case let .success((data, response)):
-                completion(HistoricalPricesUseCase.map(data, response: response))
+                guard response.statusCode == self.OK_200 else {  return completion(.failure(HistoricalPricesError.invalidData)) }
+                try? completion(HistoricalPricesUseCase.map(data, response: response))
             case .failure(let error):
-                completion(.failure(error))
+                completion(.failure(HistoricalPricesError.invalidData))
             }
         }
     }
 }
 
 private extension HistoricalPricesUseCase {
-    static func map(_ data: Data, response: URLResponse) -> HistoricalPricesResult {
+    static func map(_ data: Data, response: HTTPURLResponse) throws -> HistoricalPricesResult {
         do {
             let remotePrices = try JSONDecoder().decode(RemotePrices.self, from: data)
-            let models = remotePrices.toModel().dropLast().sorted(by: { $0.date > $1.date })
+            let models = remotePrices.toModel().filter { !Calendar.current.isDateInToday($0.date) }
             return .success(models)
         } catch  {
-            return .failure(error)
+            return .failure(HistoricalPricesError.dataCorrupted)
         }
     }
+}
+
+public enum HistoricalPricesError: Error, Equatable {
+    case invalidData
+    case dataCorrupted
 }
 
 private extension RemotePrices {
