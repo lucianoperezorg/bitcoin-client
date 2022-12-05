@@ -12,7 +12,10 @@ import HTTPNetwork
 class BitcoinListViewController: UIViewController {
     @IBOutlet weak var historicalPricesTableView: UITableView!
     @IBOutlet weak var currentPriceLabel: UILabel!
+    @IBOutlet weak var historicalActivityIndicator: UIActivityIndicatorView!
+    @IBOutlet weak var retryHistoricalButton: UIButton!
     
+    @IBOutlet weak var historicalErrorStackView: UIStackView!
     private var historiaclaPrice = [HistoricalPrice]()
     private let historicalPricesUseCase: HistoricalPricesUseCaseType
     private var currentPrice: CurrentPriceUseCaseType
@@ -33,7 +36,7 @@ class BitcoinListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         self.historicalPricesTableView.delegate = self
         self.historicalPricesTableView.dataSource = self
         self.historicalPricesTableView.register(UITableViewCell.self, forCellReuseIdentifier: "cellId")
@@ -43,18 +46,19 @@ class BitcoinListViewController: UIViewController {
         
         let notificationCenter = NotificationCenter.default
         notificationCenter.addObserver(self, selector: #selector(appMovedToBackground), name: UIApplication.willResignActiveNotification, object: nil)
-    
+        
         notificationCenter.addObserver(self, selector: #selector(appBecameActive), name: UIApplication.willEnterForegroundNotification, object: nil)
     }
-
+    
     @objc func appMovedToBackground() {
         self.currentPrice.stopObserving()
     }
     
+    
     @objc func appBecameActive() {
         self.currentPrice.startObserving()
     }
-
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.currentPrice.startObserving()
@@ -73,23 +77,46 @@ class BitcoinListViewController: UIViewController {
                     self.currentPriceLabel.text = "\(price.value) \(price.currency.description)"
                 }
             case .failure:
+                //here
                 break
             }
         }
     }
     
+    @IBAction func realoadHistoricalTouch(_ sender: Any) {
+        loadHistoricalPrice()
+    }
+
     private func loadHistoricalPrice() {
+        historicalActivityIndicator.startAnimating()
+        presentHistoricalError(enabled: false)
+        
         historicalPricesUseCase.load { result in
             switch result {
             case .success(let prices):
                 DispatchQueue.main.async {
                     self.historiaclaPrice = prices
                     self.historicalPricesTableView.reloadData()
+                    self.historicalActivityIndicator.stopAnimating()
+                    self.historicalPricesTableView.alpha = 1
+                    self.presentHistoricalError(enabled: false)
                 }
             case .failure:
-                break
+                DispatchQueue.main.async {
+                    self.historicalActivityIndicator.stopAnimating()
+                    self.presentHistoricalError()
+                }
             }
         }
+    }
+    
+    private func presentHistoricalError(enabled: Bool = true) {
+        
+        historicalErrorStackView.alpha = enabled.floatValue
+    }
+    
+    private func navigateTo(date: Date) {
+        self.delegate?.navigateToPageDetail(selectedDate: date)
     }
 }
 
@@ -129,5 +156,6 @@ extension BitcoinListViewController: UITableViewDataSource, UITableViewDelegate 
         
         let vc = BitcoinDetailViewController(currencyDetailUseCase: currencyDetail, selectedDate: date)
         navigationController?.pushViewController(vc, animated: true)
+        self.navigateTo(date: price.date)
     }
 }
