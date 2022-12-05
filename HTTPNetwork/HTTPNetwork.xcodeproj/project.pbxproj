@@ -13,6 +13,7 @@
 		DE556FF9293C243E00100808 /* URLSessionHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE556FF8293C243E00100808 /* URLSessionHTTPClient.swift */; };
 		DE556FFB293C24E100100808 /* URLSessionHTTPClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE556FFA293C24E100100808 /* URLSessionHTTPClientTests.swift */; };
 		DE556FFE293C251B00100808 /* TestHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE556FFD293C251B00100808 /* TestHelper.swift */; };
+		DE557093293D86C200100808 /* Resource.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE557092293D86C200100808 /* Resource.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -33,6 +34,7 @@
 		DE556FF8293C243E00100808 /* URLSessionHTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionHTTPClient.swift; sourceTree = "<group>"; };
 		DE556FFA293C24E100100808 /* URLSessionHTTPClientTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionHTTPClientTests.swift; sourceTree = "<group>"; };
 		DE556FFD293C251B00100808 /* TestHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestHelper.swift; sourceTree = "<group>"; };
+		DE557092293D86C200100808 /* Resource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resource.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +80,7 @@
 				DE556FDB293BCA2500100808 /* HTTPNetwork.h */,
 				DE556FF6293C241200100808 /* HTTPClient.swift */,
 				DE556FF8293C243E00100808 /* URLSessionHTTPClient.swift */,
+				DE557092293D86C200100808 /* Resource.swift */,
 			);
 			path = HTTPNetwork;
 			sourceTree = "<group>";
@@ -210,6 +213,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DE557093293D86C200100808 /* Resource.swift in Sources */,
 				DE556FF7293C241200100808 /* HTTPClient.swift in Sources */,
 				DE556FF9293C243E00100808 /* URLSessionHTTPClient.swift in Sources */,
 			);

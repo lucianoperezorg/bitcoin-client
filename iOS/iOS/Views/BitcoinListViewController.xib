@@ -12,7 +12,10 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="BitcoinListViewController" customModule="iOS" customModuleProvider="target">
             <connections>
                 <outlet property="currentPriceLabel" destination="xC4-rf-yBv" id="Oer-dX-HeQ"/>
+                <outlet property="historicalActivityIndicator" destination="KZm-NU-1I1" id="oln-ve-FBV"/>
+                <outlet property="historicalErrorStackView" destination="0Qf-Jz-dMf" id="RN3-xy-ZIb"/>
                 <outlet property="historicalPricesTableView" destination="MVn-Uz-2fZ" id="cU6-uB-teG"/>
+                <outlet property="retryHistoricalButton" destination="eKc-tr-1Up" id="SyE-9N-EB2"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -47,13 +50,39 @@
                         <outletCollection property="gestureRecognizers" destination="eaU-sf-Voc" appends="YES" id="OS4-1Z-BKG"/>
                     </connections>
                 </stackView>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="0Qf-Jz-dMf">
+                    <rect key="frame" x="118.33333333333333" y="393.66666666666669" width="156.66666666666669" height="64.666666666666686"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="There were an issue." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wg3-TI-Na0">
+                            <rect key="frame" x="0.0" y="0.0" width="156.66666666666666" height="20.333333333333332"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eKc-tr-1Up">
+                            <rect key="frame" x="0.0" y="30.333333333333318" width="156.66666666666666" height="34.333333333333343"/>
+                            <state key="normal" title="Button"/>
+                            <buttonConfiguration key="configuration" style="plain" title="Reload Historial"/>
+                            <connections>
+                                <action selector="realoadHistoricalTouch:" destination="-1" eventType="touchUpInside" id="kd2-Ri-ASq"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                </stackView>
+                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="KZm-NU-1I1">
+                    <rect key="frame" x="186.66666666666666" y="416" width="20" height="20"/>
+                </activityIndicatorView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
                 <constraint firstItem="QOi-Md-E5X" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="7TP-Ht-Jbe"/>
+                <constraint firstItem="KZm-NU-1I1" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="Jlg-IP-XGe"/>
+                <constraint firstItem="KZm-NU-1I1" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="Jrc-Ta-aAU"/>
+                <constraint firstItem="0Qf-Jz-dMf" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="K09-ya-OUF"/>
                 <constraint firstItem="QOi-Md-E5X" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="VTw-XF-JXl"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="QOi-Md-E5X" secondAttribute="trailing" constant="16" id="ccN-dk-5jq"/>
+                <constraint firstItem="0Qf-Jz-dMf" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="hPL-rc-y51"/>
             </constraints>
             <point key="canvasLocation" x="-118.32061068702289" y="20.422535211267608"/>
         </view>

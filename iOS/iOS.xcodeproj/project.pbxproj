@@ -22,6 +22,7 @@
 		DE55706C293CCF1C00100808 /* BitcoinListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE557068293CCF1C00100808 /* BitcoinListViewController.swift */; };
 		DE55706D293CCF1C00100808 /* BitcoinDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE557069293CCF1C00100808 /* BitcoinDetailViewController.swift */; };
 		DE557085293D494100100808 /* Date+toString.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE557084293D494100100808 /* Date+toString.swift */; };
+		DE55708F293D76FA00100808 /* Bool+FloatValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE55708E293D76FA00100808 /* Bool+FloatValue.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,6 +75,7 @@
 		DE557068293CCF1C00100808 /* BitcoinListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BitcoinListViewController.swift; sourceTree = "<group>"; };
 		DE557069293CCF1C00100808 /* BitcoinDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BitcoinDetailViewController.swift; sourceTree = "<group>"; };
 		DE557084293D494100100808 /* Date+toString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+toString.swift"; sourceTree = "<group>"; };
+		DE55708E293D76FA00100808 /* Bool+FloatValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Bool+FloatValue.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -167,6 +169,7 @@
 			isa = PBXGroup;
 			children = (
 				DE557084293D494100100808 /* Date+toString.swift */,
+				DE55708E293D76FA00100808 /* Bool+FloatValue.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -317,6 +320,7 @@
 			files = (
 				DE55706D293CCF1C00100808 /* BitcoinDetailViewController.swift in Sources */,
 				DE557085293D494100100808 /* Date+toString.swift in Sources */,
+				DE55708F293D76FA00100808 /* Bool+FloatValue.swift in Sources */,
 				DE55702F293CCE2600100808 /* AppDelegate.swift in Sources */,
 				DE55706C293CCF1C00100808 /* BitcoinListViewController.swift in Sources */,
 			);
