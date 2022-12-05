@@ -15,7 +15,9 @@ class BitcoinListViewController: UIViewController {
     @IBOutlet weak var historicalActivityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var retryHistoricalButton: UIButton!
     
+    @IBOutlet weak var currentPriceInfoLabel: UILabel!
     @IBOutlet weak var historicalErrorStackView: UIStackView!
+    
     private var historiaclaPrice = [HistoricalPrice]()
     private let historicalPricesUseCase: HistoricalPricesUseCaseType
     private var currentPrice: CurrentPriceUseCaseType
@@ -74,11 +76,12 @@ class BitcoinListViewController: UIViewController {
             switch result {
             case .success(let price):
                 DispatchQueue.main.async {
+                    self.currentPriceInfoLabel.text = "\(Date().toString(dateFormat: "HH:mm:ss")) - real-time data"
                     self.currentPriceLabel.text = "\(price.value) \(price.currency.description)"
                 }
             case .failure:
-                //here
-                break
+                self.currentPriceInfoLabel.text = "##########"
+                self.currentPriceInfoLabel.text = "An error occurred trying to get the current price."
             }
         }
     }
