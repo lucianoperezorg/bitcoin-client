@@ -114,10 +114,6 @@ class BitcoinListViewController: UIViewController {
         
         historicalErrorStackView.alpha = enabled.floatValue
     }
-    
-    private func navigateTo(date: Date) {
-        self.delegate?.navigateToPageDetail(selectedDate: date)
-    }
 }
 
 //MARK: - UITableViewDataSource, UITableViewDelegate
@@ -138,24 +134,15 @@ extension BitcoinListViewController: UITableViewDataSource, UITableViewDelegate 
         tableView.deselectRow(at: indexPath, animated: true)
 
         let price = historiaclaPrice[indexPath.row]
-        let stringURL = "https://api.coingecko.com/api/v3/coins/bitcoin/history?date=\(price.date.toString())"
-        
-        let url = URL(string: stringURL)!
-        let currencyDetail = CurrencyDetailUseCase(url: url, client: URLSessionHTTPClient())
-        
-        let vc = BitcoinDetailViewController(currencyDetailUseCase: currencyDetail, selectedDate: price.date)
-        navigationController?.pushViewController(vc, animated: true)
+        navigateTo(date: price.date)
     }
     
-    
     private func navigateTo(date: Date) {
-        let stringURL = "https://api.coingecko.com/api/v3/coins/bitcoin/history?date=\(date.toString())"
+        guard let url = Resource.PricesDetail(dateString: date.toString()).resolveUrl else { return }
         
-        let url = URL(string: stringURL)!
         let currencyDetail = CurrencyDetailUseCase(url: url, client: URLSessionHTTPClient())
         
         let vc = BitcoinDetailViewController(currencyDetailUseCase: currencyDetail, selectedDate: date)
         navigationController?.pushViewController(vc, animated: true)
-        self.navigateTo(date: price.date)
     }
 }
