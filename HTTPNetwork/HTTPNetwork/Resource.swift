@@ -12,9 +12,8 @@ public struct Resource {
     private let parameters: [String: CustomStringConvertible]
     
     public var resolveUrl: URL? {
-        guard var components = URLComponents(url: url, resolvingAgainstBaseURL: false) else {
-            return nil
-        }
+        guard var components = URLComponents(url: url, resolvingAgainstBaseURL: false) else { return nil }
+        guard parameters.count != 0 else {  return url }
         components.queryItems = parameters.keys.map { key in
             URLQueryItem(name: key, value: parameters[key]?.description)
         }
