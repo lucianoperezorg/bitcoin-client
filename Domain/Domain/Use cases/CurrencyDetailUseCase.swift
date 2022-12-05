@@ -23,13 +23,15 @@ public class CurrencyDetailUseCase: CurrencyDetailUseCaseType {
         self.client = client
     }
     
+    private  var OK_200: Int { return 200 }
     public func currencyDetail(completion: @escaping (CurrencyDetailResult) -> Void) {
         client.get(from: url) { result in
             switch result {
             case let .success((data, response)):
+                guard response.statusCode == self.OK_200 else {  return completion(.failure(PriceError.invalidData)) }
                 completion(CurrencyDetailUseCase.map(data, response))
-            case .failure(let error):
-                completion(.failure(error))
+            case .failure:
+                completion(.failure(PriceError.invalidData))
             }
         }
     }
@@ -41,7 +43,7 @@ private extension CurrencyDetailUseCase {
             let marketData = try JSONDecoder().decode(HistoryData.self, from: data)
             return .success(marketData.toModel())
         } catch {
-            return .failure(error)
+            return .failure(PriceError.dataCorrupted)
         }
     }
 }

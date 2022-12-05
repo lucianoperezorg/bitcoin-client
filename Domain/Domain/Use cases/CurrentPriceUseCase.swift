@@ -15,23 +15,36 @@ public protocol CurrentPriceUseCaseType {
     var priceResultHandler: ((CurrentPriceResult) -> Void)? { get set }
 }
 
-public final class CurrentPriceUseCase: CurrentPriceUseCaseType {
-    private let url: URL
-    private let client: HTTPClient
+public protocol SchedulerTimerDelegate: AnyObject {
+    func getCalled()
+}
+
+public protocol SchedulerTimerType: AnyObject {
+    func startObserving(observed: SchedulerTimerDelegate)
+    func stopObserving()
+    var schedulerTimerDelegate: SchedulerTimerDelegate? { get set }
+}
+
+public class SchedulerTimer: SchedulerTimerType {
+    private let frecuency: TimeInterval
     private var timer: Timer?
-
-    public var priceResultHandler: ((CurrentPriceResult) -> Void)?
-
-    public init(url: URL, client: HTTPClient, timer: Timer = Timer()) {
-        self.url = url
-        self.client = client
-        self.timer = timer
+    private let repeats: Bool
+    
+    weak public var schedulerTimerDelegate: SchedulerTimerDelegate?
+    
+    public init(frecuency: TimeInterval = 10, repeats: Bool = true) {
+        self.frecuency = frecuency
+        self.repeats = repeats
     }
     
-    public func startObserving() {
-        guard timer == nil else { return }
+    private func scheduledTimer() {
+        timer = Timer.scheduledTimer(timeInterval: frecuency, target: self, selector: #selector(handlerCalled), userInfo: nil, repeats: repeats)
+    }
+    
+    public func startObserving(observed: SchedulerTimerDelegate) {
+        schedulerTimerDelegate = observed
         scheduledTimer()
-        loadCurrentPrice()
+        handlerCalled()
     }
     
     public func stopObserving() {
@@ -39,19 +52,45 @@ public final class CurrentPriceUseCase: CurrentPriceUseCaseType {
         timer = nil
     }
     
-    private var FREQUENCY: TimeInterval { return 60 }
-    private func scheduledTimer() {
-        timer = Timer.scheduledTimer(timeInterval: FREQUENCY, target: self, selector: #selector(loadCurrentPrice), userInfo: nil, repeats: true)
+    @objc private func handlerCalled() {
+        schedulerTimerDelegate?.getCalled()
+    }
+}
+
+public final class CurrentPriceUseCase: CurrentPriceUseCaseType {
+    private let url: URL
+    private let client: HTTPClient
+    private let timer: SchedulerTimerType
+    
+    public var priceResultHandler: ((CurrentPriceResult) -> Void)?
+
+    public init(url: URL, client: HTTPClient, timer: SchedulerTimerType = SchedulerTimer()) {
+        self.url = url
+        self.client = client
+        self.timer = timer
     }
     
-    @objc private func loadCurrentPrice() {
+    public func startObserving() {
+        timer.startObserving(observed: self)
+    }
+    
+    public func stopObserving() {
+        timer.stopObserving()
+    }
+    private  var OK_200: Int { return 200 }
+    
+    private func loadCurrentPrice() {
         client.get(from: url) { [weak self] result in
             guard let self = self else { return }
             switch result {
             case let .success((data, response)):
+                if response.statusCode != self.OK_200 {
+                    self.priceResultHandler?(.failure(PriceError.invalidData))
+                    return
+                }
                 self.priceResultHandler?(CurrentPriceUseCase.map(data, response: response))
-            case .failure(let error):
-                self.priceResultHandler?(.failure(error))
+            case .failure:
+                self.priceResultHandler?(.failure(PriceError.invalidData))
             }
         }
     }
@@ -64,8 +103,13 @@ private extension CurrentPriceUseCase {
             let price = Price(value: rootPrice.price.current, currency: .EUR)
             return .success(price)
         } catch {
-            return .failure(error)
+            return  .failure(PriceError.dataCorrupted)
         }
     }
 }
 
+extension CurrentPriceUseCase: SchedulerTimerDelegate {
+    public func getCalled() {
+        loadCurrentPrice()
+    }
+}

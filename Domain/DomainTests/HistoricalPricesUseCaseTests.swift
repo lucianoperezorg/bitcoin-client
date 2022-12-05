@@ -39,18 +39,18 @@ final class HistoricalPricesUseCaseTests: XCTestCase {
     func test_load_deliversErrorOnClientError() {
         let (sut, client) = makeSUT()
         expect(sut: sut, toCompleteWith: failure(.invalidData), when: {
-            let clientError = NSError(domain: "test", code: 0)
+            let clientError = anyNSError()
             client.complete(with: clientError)
         })
     }
     
     func test_load_deliversErrorOnNon200HTTPResponse() {
       let (sut, client) = makeSUT()
-      let samples =  [199,201,300,400,500]
+      let samples =  [199, 201, 300, 400, 500]
       
       samples.enumerated().forEach { index, code in
         expect(sut: sut, toCompleteWith: failure(.invalidData), when: {
-          let json = makeItemJSON([])
+          let json = makePricesJSON([])
           client.complete(withStatusCode: code,data: json, index: index)
         })
       }
@@ -59,8 +59,7 @@ final class HistoricalPricesUseCaseTests: XCTestCase {
     func test_load_deliversErrorOn200HTTPResponseWithInvalidaJSON() {
       let (sut, client) = makeSUT()
         expect(sut: sut, toCompleteWith: failure(.dataCorrupted), when: {
-        let invalidData = Data("invalida json".utf8)
-        client.complete(withStatusCode: 200, data: invalidData)
+        client.complete(withStatusCode: 200, data: anyInvalidaData)
       })
     }
     
@@ -68,7 +67,7 @@ final class HistoricalPricesUseCaseTests: XCTestCase {
       let (sut, client) = makeSUT()
       
       expect(sut: sut, toCompleteWith: .success([]), when: {
-        let emptyList = makeItemJSON([])
+        let emptyList = makePricesJSON([])
         client.complete(withStatusCode: 200, data: emptyList)
       })
     }
@@ -81,7 +80,7 @@ final class HistoricalPricesUseCaseTests: XCTestCase {
         let price2 = makePrice(price: 16135.3, date: yesterdayDate)
         
         expect(sut: sut, toCompleteWith: .success([price1.model, price2.model])) {
-            let json = makeItemJSON([price1.Json, price2.Json])
+            let json = makePricesJSON([price1.Json, price2.Json])
         client.complete(withStatusCode: 200, data: json)
       }
     }
@@ -95,7 +94,7 @@ final class HistoricalPricesUseCaseTests: XCTestCase {
         let price2 = makePrice(price: 16135.3, date: todayDate)
         
         expect(sut: sut, toCompleteWith: .success([price1.model])) {
-            let json = makeItemJSON([price1.Json, price2.Json])
+            let json = makePricesJSON([price1.Json, price2.Json])
         client.complete(withStatusCode: 200, data: json)
       }
     }
@@ -103,16 +102,16 @@ final class HistoricalPricesUseCaseTests: XCTestCase {
     private func makePrice(price: Double, currency: Currency = .EUR ,date: Date) ->
     (model: HistoricalPrice, Json: [Double]) {
         let historicalPrice = HistoricalPrice(price: price, currency: .EUR, date: date)
-        let itemJson = [ date.timeIntervalSince1970 * 1000, price]
-        return (historicalPrice, itemJson)
+        let priceJson = [ date.timeIntervalSince1970 * 1000, price]
+        return (historicalPrice, priceJson)
     }
     
-    private func makeItemJSON(_ items: [[Double]]) -> Data {
-      let pricesJSON = ["prices": items]
+    private func makePricesJSON(_ prices: [[Double]]) -> Data {
+      let pricesJSON = ["prices": prices]
       return try! JSONSerialization.data(withJSONObject: pricesJSON)
     }
     
-    private func failure(_ error: HistoricalPricesError) -> HistoricalPricesResult {
+    private func failure(_ error: PriceError) -> HistoricalPricesResult {
         .failure(error)
     }
     
@@ -121,10 +120,10 @@ final class HistoricalPricesUseCaseTests: XCTestCase {
         let exp = expectation(description: "Wait to load completion")
         sut.load { receiveResult in
             switch (receiveResult, expectedResult) {
-            case let (.success(receiveItems), .success(expectedItems)):
-                XCTAssertEqual(receiveItems, expectedItems, file: file, line: line)
+            case let (.success(receiveHistoricalPrice), .success(expectedHistoricalPrice)):
+                XCTAssertEqual(receiveHistoricalPrice, expectedHistoricalPrice, file: file, line: line)
             case let (.failure(receivedError), .failure(expectdError)):
-                XCTAssertEqual(receivedError as! HistoricalPricesError, expectdError as! HistoricalPricesError, file: file, line: line)
+                XCTAssertEqual(receivedError as! PriceError, expectdError as! PriceError, file: file, line: line)
        
             default:
                 XCTFail("Expected result \(receiveResult), got \(expectedResult) instead", file: file, line: line)
@@ -132,7 +131,7 @@ final class HistoricalPricesUseCaseTests: XCTestCase {
             
             exp.fulfill()
         }
-        
+ 
         action()
         wait(for: [exp], timeout: 1.0)
     }
@@ -141,57 +140,5 @@ final class HistoricalPricesUseCaseTests: XCTestCase {
         let client = HTTPClientSpy()
         let sut = HistoricalPricesUseCase(url: url, client: client)
         return (sut, client)
-    }
-}
-
-class HTTPClientSpy: HTTPClient {
-
-    var messages = [(url: URL, completion: (HTTPClientResult) -> Void)]()
-    
-    var requestURLs: [URL] {
-        return messages.map { $0.url }
-    }
-    
-    func get(from url: URL, completion: @escaping (HTTPNetwork.HTTPClientResult) -> Void) {
-        messages.append((url, completion))
-    }
-    
-    func complete(with error: Error, index: Int = 0) {
-        messages[index].completion(.failure(error))
-    }
-    
-    func complete(withStatusCode code: Int, data: Data, index: Int = 0) {
-        let response = HTTPURLResponse(url: requestURLs[index], statusCode: code, httpVersion: nil, headerFields: nil)!
-        
-        messages[index].completion(.success((data, response)))
-    }
-}
-
-
-func anyNSError() -> NSError {
-    return NSError(domain: "Any error", code: 0)
-}
-
-func anyUrl() -> URL {
-    URL(string: "http://a-given-url.com")!
-}
-
-extension Date {
-    static var yesterday: Date { return Date().dayBefore }
-    static var tomorrow:  Date { return Date().dayAfter }
-    var dayBefore: Date {
-        return Calendar.current.date(byAdding: .day, value: -1, to: noon)!
-    }
-    var dayAfter: Date {
-        return Calendar.current.date(byAdding: .day, value: 1, to: noon)!
-    }
-    var noon: Date {
-        return Calendar.current.date(bySettingHour: 12, minute: 0, second: 0, of: self)!
-    }
-    var month: Int {
-        return Calendar.current.component(.month,  from: self)
-    }
-    var isLastDayOfMonth: Bool {
-        return dayAfter.month != month
     }
 }
