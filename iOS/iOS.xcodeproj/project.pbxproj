@@ -7,12 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DE1B0973293ECEC600EA901E /* BitcoinListViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE1B0972293ECEC600EA901E /* BitcoinListViewControllerTests.swift */; };
+		DE1B0976293ED2AE00EA901E /* DispatchQueueType.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE1B0975293ED2AE00EA901E /* DispatchQueueType.swift */; };
+		DE1B0979293EDA9800EA901E /* DispatchQueueMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE1B0978293EDA9800EA901E /* DispatchQueueMock.swift */; };
+		DE1B097B293EE71300EA901E /* Mocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE1B097A293EE71300EA901E /* Mocks.swift */; };
 		DE55702F293CCE2600100808 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE55702E293CCE2600100808 /* AppDelegate.swift */; };
 		DE557038293CCE2700100808 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DE557037293CCE2700100808 /* Assets.xcassets */; };
 		DE55703B293CCE2700100808 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DE557039293CCE2700100808 /* LaunchScreen.storyboard */; };
-		DE557046293CCE2700100808 /* iOSTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE557045293CCE2700100808 /* iOSTests.swift */; };
-		DE557050293CCE2700100808 /* iOSUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE55704F293CCE2700100808 /* iOSUITests.swift */; };
-		DE557052293CCE2700100808 /* iOSUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE557051293CCE2700100808 /* iOSUITestsLaunchTests.swift */; };
 		DE557060293CCEFE00100808 /* Domain.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE55705F293CCEFE00100808 /* Domain.framework */; };
 		DE557061293CCEFE00100808 /* Domain.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = DE55705F293CCEFE00100808 /* Domain.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		DE557064293CCF0100100808 /* HTTPNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DE557063293CCF0100100808 /* HTTPNetwork.framework */; };
@@ -27,13 +28,6 @@
 
 /* Begin PBXContainerItemProxy section */
 		DE557042293CCE2700100808 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = DE557023293CCE2600100808 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = DE55702A293CCE2600100808;
-			remoteInfo = iOS;
-		};
-		DE55704C293CCE2700100808 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = DE557023293CCE2600100808 /* Project object */;
 			proxyType = 1;
@@ -58,16 +52,16 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		DE1B0972293ECEC600EA901E /* BitcoinListViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BitcoinListViewControllerTests.swift; sourceTree = "<group>"; };
+		DE1B0975293ED2AE00EA901E /* DispatchQueueType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchQueueType.swift; sourceTree = "<group>"; };
+		DE1B0978293EDA9800EA901E /* DispatchQueueMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchQueueMock.swift; sourceTree = "<group>"; };
+		DE1B097A293EE71300EA901E /* Mocks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mocks.swift; sourceTree = "<group>"; };
 		DE55702B293CCE2600100808 /* iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE55702E293CCE2600100808 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DE557037293CCE2700100808 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DE55703A293CCE2700100808 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DE55703C293CCE2700100808 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DE557041293CCE2700100808 /* iOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iOSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		DE557045293CCE2700100808 /* iOSTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSTests.swift; sourceTree = "<group>"; };
-		DE55704B293CCE2700100808 /* iOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iOSUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		DE55704F293CCE2700100808 /* iOSUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSUITests.swift; sourceTree = "<group>"; };
-		DE557051293CCE2700100808 /* iOSUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		DE55705F293CCEFE00100808 /* Domain.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Domain.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE557063293CCF0100100808 /* HTTPNetwork.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = HTTPNetwork.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE557066293CCF1C00100808 /* BitcoinListViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BitcoinListViewController.xib; sourceTree = "<group>"; };
@@ -95,22 +89,31 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		DE557048293CCE2700100808 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		DE1B0974293ED2A500EA901E /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				DE1B0975293ED2AE00EA901E /* DispatchQueueType.swift */,
+			);
+			path = Helper;
+			sourceTree = "<group>";
+		};
+		DE1B0977293EDA8E00EA901E /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				DE1B0978293EDA9800EA901E /* DispatchQueueMock.swift */,
+				DE1B097A293EE71300EA901E /* Mocks.swift */,
+			);
+			path = Helper;
+			sourceTree = "<group>";
+		};
 		DE557022293CCE2600100808 = {
 			isa = PBXGroup;
 			children = (
 				DE55702D293CCE2600100808 /* iOS */,
 				DE557044293CCE2700100808 /* iOSTests */,
-				DE55704E293CCE2700100808 /* iOSUITests */,
 				DE55702C293CCE2600100808 /* Products */,
 				DE55705E293CCEFE00100808 /* Frameworks */,
 			);
@@ -121,7 +124,6 @@
 			children = (
 				DE55702B293CCE2600100808 /* iOS.app */,
 				DE557041293CCE2700100808 /* iOSTests.xctest */,
-				DE55704B293CCE2700100808 /* iOSUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -129,6 +131,7 @@
 		DE55702D293CCE2600100808 /* iOS */ = {
 			isa = PBXGroup;
 			children = (
+				DE1B0974293ED2A500EA901E /* Helper */,
 				DE557083293D492500100808 /* Extensions */,
 				DE557086293D4E8400100808 /* Views */,
 				DE55702E293CCE2600100808 /* AppDelegate.swift */,
@@ -142,18 +145,10 @@
 		DE557044293CCE2700100808 /* iOSTests */ = {
 			isa = PBXGroup;
 			children = (
-				DE557045293CCE2700100808 /* iOSTests.swift */,
+				DE1B0977293EDA8E00EA901E /* Helper */,
+				DE1B0972293ECEC600EA901E /* BitcoinListViewControllerTests.swift */,
 			);
 			path = iOSTests;
-			sourceTree = "<group>";
-		};
-		DE55704E293CCE2700100808 /* iOSUITests */ = {
-			isa = PBXGroup;
-			children = (
-				DE55704F293CCE2700100808 /* iOSUITests.swift */,
-				DE557051293CCE2700100808 /* iOSUITestsLaunchTests.swift */,
-			);
-			path = iOSUITests;
 			sourceTree = "<group>";
 		};
 		DE55705E293CCEFE00100808 /* Frameworks */ = {
@@ -224,24 +219,6 @@
 			productReference = DE557041293CCE2700100808 /* iOSTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		DE55704A293CCE2700100808 /* iOSUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = DE55705B293CCE2700100808 /* Build configuration list for PBXNativeTarget "iOSUITests" */;
-			buildPhases = (
-				DE557047293CCE2700100808 /* Sources */,
-				DE557048293CCE2700100808 /* Frameworks */,
-				DE557049293CCE2700100808 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				DE55704D293CCE2700100808 /* PBXTargetDependency */,
-			);
-			name = iOSUITests;
-			productName = iOSUITests;
-			productReference = DE55704B293CCE2700100808 /* iOSUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -256,10 +233,6 @@
 						CreatedOnToolsVersion = 14.1;
 					};
 					DE557040293CCE2700100808 = {
-						CreatedOnToolsVersion = 14.1;
-						TestTargetID = DE55702A293CCE2600100808;
-					};
-					DE55704A293CCE2700100808 = {
 						CreatedOnToolsVersion = 14.1;
 						TestTargetID = DE55702A293CCE2600100808;
 					};
@@ -280,7 +253,6 @@
 			targets = (
 				DE55702A293CCE2600100808 /* iOS */,
 				DE557040293CCE2700100808 /* iOSTests */,
-				DE55704A293CCE2700100808 /* iOSUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -304,13 +276,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		DE557049293CCE2700100808 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -321,6 +286,7 @@
 				DE55706D293CCF1C00100808 /* BitcoinDetailViewController.swift in Sources */,
 				DE557085293D494100100808 /* Date+toString.swift in Sources */,
 				DE55708F293D76FA00100808 /* Bool+FloatValue.swift in Sources */,
+				DE1B0976293ED2AE00EA901E /* DispatchQueueType.swift in Sources */,
 				DE55702F293CCE2600100808 /* AppDelegate.swift in Sources */,
 				DE55706C293CCF1C00100808 /* BitcoinListViewController.swift in Sources */,
 			);
@@ -330,16 +296,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DE557046293CCE2700100808 /* iOSTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		DE557047293CCE2700100808 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				DE557052293CCE2700100808 /* iOSUITestsLaunchTests.swift in Sources */,
-				DE557050293CCE2700100808 /* iOSUITests.swift in Sources */,
+				DE1B0973293ECEC600EA901E /* BitcoinListViewControllerTests.swift in Sources */,
+				DE1B0979293EDA9800EA901E /* DispatchQueueMock.swift in Sources */,
+				DE1B097B293EE71300EA901E /* Mocks.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -350,11 +309,6 @@
 			isa = PBXTargetDependency;
 			target = DE55702A293CCE2600100808 /* iOS */;
 			targetProxy = DE557042293CCE2700100808 /* PBXContainerItemProxy */;
-		};
-		DE55704D293CCE2700100808 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = DE55702A293CCE2600100808 /* iOS */;
-			targetProxy = DE55704C293CCE2700100808 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -580,42 +534,6 @@
 			};
 			name = Release;
 		};
-		DE55705C293CCE2700100808 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = EH5494EZG6;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "feed-bitcoin-2300.com.iOSUITests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = iOS;
-			};
-			name = Debug;
-		};
-		DE55705D293CCE2700100808 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = EH5494EZG6;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "feed-bitcoin-2300.com.iOSUITests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = iOS;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -642,15 +560,6 @@
 			buildConfigurations = (
 				DE557059293CCE2700100808 /* Debug */,
 				DE55705A293CCE2700100808 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		DE55705B293CCE2700100808 /* Build configuration list for PBXNativeTarget "iOSUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				DE55705C293CCE2700100808 /* Debug */,
-				DE55705D293CCE2700100808 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

@@ -14,17 +14,20 @@ class BitcoinListViewController: UIViewController {
     @IBOutlet weak var currentPriceLabel: UILabel!
     @IBOutlet weak var historicalActivityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var retryHistoricalButton: UIButton!
-    
     @IBOutlet weak var currentPriceInfoLabel: UILabel!
     @IBOutlet weak var historicalErrorStackView: UIStackView!
     
-    private var historiaclaPrice = [HistoricalPrice]()
+    private var historicalPrices = [HistoricalPrice]()
     private let historicalPricesUseCase: HistoricalPricesUseCaseType
     private var currentPrice: CurrentPriceUseCaseType
+    private let mainDispatchQueue: DispatchQueueType
+    private let date: (() -> Date)
     
-    init(historicalPrices: HistoricalPricesUseCaseType, currentPrice: CurrentPriceUseCaseType) {
+    init(historicalPrices: HistoricalPricesUseCaseType, currentPrice: CurrentPriceUseCaseType, mainDispatchQueue: DispatchQueueType = DispatchQueue.main, date: @escaping (() -> Date) = { Date() } ) {
         self.currentPrice = currentPrice
         self.historicalPricesUseCase = historicalPrices
+        self.mainDispatchQueue = mainDispatchQueue
+        self.date = date
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -38,11 +41,8 @@ class BitcoinListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        self.historicalPricesTableView.delegate = self
-        self.historicalPricesTableView.dataSource = self
-        self.historicalPricesTableView.register(UITableViewCell.self, forCellReuseIdentifier: "cellId")
         
+        self.configureTableView()
         self.loadCurrentPrice()
         self.loadHistoricalPrice()
         
@@ -53,12 +53,11 @@ class BitcoinListViewController: UIViewController {
     }
     
     @objc func appMovedToBackground() {
-        self.currentPrice.stopObserving()
+        currentPrice.stopObserving()
     }
     
-    
     @objc func appBecameActive() {
-        self.currentPrice.startObserving()
+        currentPrice.startObserving()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -73,23 +72,27 @@ class BitcoinListViewController: UIViewController {
     
     @objc private func loadCurrentPrice() {
         currentPrice.priceResultHandler = { result in
-            switch result {
-            case .success(let price):
-                DispatchQueue.main.async {
-                    self.currentPriceInfoLabel.text = "\(Date().toString(dateFormat: "HH:mm:ss")) - real-time data"
-                    self.currentPriceLabel.text = "\(price.value) \(price.currency.description)"
-                }
-            case .failure:
-                self.currentPriceInfoLabel.text = "##########"
-                self.currentPriceInfoLabel.text = "An error occurred trying to get the current price."
+            self.mainDispatchQueue.async {
+                self.handledCurrentUpdated(with: result)
             }
+        }
+    }
+    
+    private func handledCurrentUpdated(with result: CurrentPriceResult) {
+        switch result {
+        case .success(let price):
+            self.currentPriceInfoLabel.text = "\(self.date().toString(dateFormat: "HH:mm:ss")) - real-time data"
+            self.currentPriceLabel.text = "\(price.value) \(price.currency.description)"
+        case .failure:
+            self.currentPriceLabel.text = "00.0000 Euros"
+            self.currentPriceInfoLabel.text = "An error occurred trying to get the current price."
         }
     }
     
     @IBAction func realoadHistoricalTouch(_ sender: Any) {
         loadHistoricalPrice()
     }
-
+    
     private func loadHistoricalPrice() {
         historicalActivityIndicator.startAnimating()
         presentHistoricalError(enabled: false)
@@ -97,16 +100,17 @@ class BitcoinListViewController: UIViewController {
         historicalPricesUseCase.load { result in
             switch result {
             case .success(let prices):
-                DispatchQueue.main.async {
-                    self.historiaclaPrice = prices
+                self.mainDispatchQueue.async {
+                    self.historicalPrices = prices
                     self.historicalPricesTableView.reloadData()
                     self.historicalActivityIndicator.stopAnimating()
                     self.historicalPricesTableView.alpha = 1
                     self.presentHistoricalError(enabled: false)
                 }
             case .failure:
-                DispatchQueue.main.async {
+                self.mainDispatchQueue.async {
                     self.historicalActivityIndicator.stopAnimating()
+                    self.historicalPricesTableView.alpha = 0
                     self.presentHistoricalError()
                 }
             }
@@ -114,7 +118,6 @@ class BitcoinListViewController: UIViewController {
     }
     
     private func presentHistoricalError(enabled: Bool = true) {
-        
         historicalErrorStackView.alpha = enabled.floatValue
     }
 }
@@ -122,12 +125,12 @@ class BitcoinListViewController: UIViewController {
 //MARK: - UITableViewDataSource, UITableViewDelegate
 extension BitcoinListViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        historiaclaPrice.count
+        historicalPrices.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cellId", for: indexPath)
-        let price = historiaclaPrice[indexPath.row]
+        let price = historicalPrices[indexPath.row]
         
         cell.textLabel?.text = "\(Int(price.price)) \(price.currency.description) - \(price.date.toString())"
         return cell
@@ -135,8 +138,8 @@ extension BitcoinListViewController: UITableViewDataSource, UITableViewDelegate 
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-
-        let price = historiaclaPrice[indexPath.row]
+        
+        let price = historicalPrices[indexPath.row]
         navigateTo(date: price.date)
     }
     
@@ -147,5 +150,11 @@ extension BitcoinListViewController: UITableViewDataSource, UITableViewDelegate 
         
         let vc = BitcoinDetailViewController(currencyDetailUseCase: currencyDetail, selectedDate: date)
         navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    private func configureTableView() {
+        historicalPricesTableView.delegate = self
+        historicalPricesTableView.dataSource = self
+        historicalPricesTableView.register(UITableViewCell.self, forCellReuseIdentifier: "cellId")
     }
 }
