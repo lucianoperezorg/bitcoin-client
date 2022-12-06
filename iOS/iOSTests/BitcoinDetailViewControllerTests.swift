@@ -21,6 +21,15 @@ final class BitcoinDetailViewControllerTests: XCTestCase {
         XCTAssertNotNil(sut.tableView.dataSource)
     }
     
+    func test_init_willPresentLoadingAvtivity() {
+        let (sut, _) = makeSUT()
+        
+        _ = sut.view
+        
+        XCTAssertTrue(sut.loadingActivityIndicator.isAnimating == true)
+        XCTAssertTrue(sut.loadingActivityIndicator.alpha == 1)
+    }
+    
     func test_loadView_currencyListRenderOnScreen() {
         let date = Date()
         let (sut, detailUseCase) = makeSUT(date: date)
