@@ -21,13 +21,13 @@ class BitcoinListViewController: UIViewController {
     private let historicalPricesUseCase: HistoricalPricesUseCaseType
     private var currentPrice: CurrentPriceUseCaseType
     private let mainDispatchQueue: DispatchQueueType
-    private let date: (() -> Date)
+    private let currentDate: (() -> Date)
     
-    init(historicalPrices: HistoricalPricesUseCaseType, currentPrice: CurrentPriceUseCaseType, mainDispatchQueue: DispatchQueueType = DispatchQueue.main, date: @escaping (() -> Date) = { Date() } ) {
+    init(historicalPrices: HistoricalPricesUseCaseType, currentPrice: CurrentPriceUseCaseType, mainDispatchQueue: DispatchQueueType = DispatchQueue.main, currentDate: @escaping (() -> Date) = { Date() } ) {
         self.currentPrice = currentPrice
         self.historicalPricesUseCase = historicalPrices
         self.mainDispatchQueue = mainDispatchQueue
-        self.date = date
+        self.currentDate = currentDate
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -81,7 +81,7 @@ class BitcoinListViewController: UIViewController {
     private func handledCurrentUpdated(with result: CurrentPriceResult) {
         switch result {
         case .success(let price):
-            self.currentPriceInfoLabel.text = "\(self.date().toString(dateFormat: "HH:mm:ss")) - real-time data"
+            self.currentPriceInfoLabel.text = "\(self.currentDate().toString(dateFormat: "HH:mm:ss")) - real-time data"
             self.currentPriceLabel.text = "\(price.value) \(price.currency.description)"
         case .failure:
             self.currentPriceLabel.text = "00.0000 Euros"
@@ -100,20 +100,28 @@ class BitcoinListViewController: UIViewController {
         historicalPricesUseCase.load { result in
             switch result {
             case .success(let prices):
-                self.mainDispatchQueue.async {
-                    self.historicalPrices = prices
-                    self.historicalPricesTableView.reloadData()
-                    self.historicalActivityIndicator.stopAnimating()
-                    self.historicalPricesTableView.alpha = 1
-                    self.presentHistoricalError(enabled: false)
-                }
+                self.historicalPrices = prices
+                self.manageHistoricalSuccessResult()
             case .failure:
-                self.mainDispatchQueue.async {
-                    self.historicalActivityIndicator.stopAnimating()
-                    self.historicalPricesTableView.alpha = 0
-                    self.presentHistoricalError()
-                }
+                self.manageHistoricalErrorResult()
             }
+        }
+    }
+    
+    private func manageHistoricalErrorResult() {
+        mainDispatchQueue.async {
+            self.historicalActivityIndicator.stopAnimating()
+            self.historicalPricesTableView.alpha = 0
+            self.presentHistoricalError()
+        }
+    }
+    
+    private func manageHistoricalSuccessResult() {
+        mainDispatchQueue.async {
+            self.historicalPricesTableView.reloadData()
+            self.historicalActivityIndicator.stopAnimating()
+            self.historicalPricesTableView.alpha = 1
+            self.presentHistoricalError(enabled: false)
         }
     }
     

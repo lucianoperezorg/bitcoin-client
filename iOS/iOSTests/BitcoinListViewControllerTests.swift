@@ -122,7 +122,7 @@ final class BitcoinListViewControllerTests: XCTestCase {
     (sut: BitcoinListViewController, priceUseCase: CurrentPriceUseCaseMock, historicalPricesUseCase: HistoricalPricesUseCaseMock) {
         let historicalPricesUseCase = HistoricalPricesUseCaseMock()
         let currentPriceUseCase = CurrentPriceUseCaseMock()
-        let sut = BitcoinListViewController(historicalPrices: historicalPricesUseCase, currentPrice: currentPriceUseCase, mainDispatchQueue: DispatchQueueMock(), date: { date })
+        let sut = BitcoinListViewController(historicalPrices: historicalPricesUseCase, currentPrice: currentPriceUseCase, mainDispatchQueue: DispatchQueueMock(), currentDate: { date })
         return (sut, currentPriceUseCase, historicalPricesUseCase)
     }
 }
