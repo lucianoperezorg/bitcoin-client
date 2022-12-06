@@ -8,7 +8,7 @@
 import Foundation
 
 public enum Currency: String {
-    case EUR, USD,GBP
+    case EUR, USD, GBP
     
     public var description: String {
         switch self {

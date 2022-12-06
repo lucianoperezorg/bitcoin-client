@@ -51,11 +51,11 @@ final class CurrentPriceUseCaseTests: XCTestCase {
     func test_load_deliversErrorOn200HTTPResponseWithInvalidaJSON() {
         let (sut, client) = makeSUT()
         expect(sut: sut, toCompleteWith: .failure(PriceError.dataCorrupted), when: {
-            client.complete(withStatusCode: 200, data: anyInvalidaData)
+            client.complete(withStatusCode: 200, data: anyInvalidData)
         })
     }
     
-    func test_load_deliversErrorOn200HTTPResponseWithRightJSONList() {
+    func test_load_deliversErrorOn200HTTPResponseWithCorrectJSONList() {
         let (sut, client) = makeSUT()
         let priceValue = 234.0
         let givenPrice = Price(value: priceValue, currency: .EUR)
@@ -65,11 +65,11 @@ final class CurrentPriceUseCaseTests: XCTestCase {
         })
     }
     
-    func test_init_doesNotRequestDataFromURLd() {
+    func test_init_doesNotRequestDataAfterStopObservingValues() {
         let client = HTTClientMock()
         let scheduler = SchedulerTimer(frecuency: 1, repeats: true)
-        
-        let sut = CurrentPriceUseCase(url: anyUrl(), client: client, timer: scheduler)
+       
+        let sut = CurrentPriceUseCase(url: anyUrl(), client: client, schedulerTimer: scheduler)
         sut.startObserving()
         
         wait(timeout: 1.0, then: {
@@ -104,7 +104,7 @@ final class CurrentPriceUseCaseTests: XCTestCase {
         let client = HTTPClientSpy()
         let scheduler = SchedulerTimer(frecuency: frecuency, repeats: repets)
         
-        let sut = CurrentPriceUseCase(url: url, client: client, timer: scheduler)
+        let sut = CurrentPriceUseCase(url: url, client: client, schedulerTimer: scheduler)
         return (sut, client)
     }
     

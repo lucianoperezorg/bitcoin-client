@@ -26,6 +26,8 @@
 		DE557095293D873F00100808 /* Resource+Price.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE557094293D873F00100808 /* Resource+Price.swift */; };
 		DE83AFFB293E2A980055D8DF /* CurrentPriceUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE83AFFA293E2A980055D8DF /* CurrentPriceUseCaseTests.swift */; };
 		DE83AFFE293E3D0A0055D8DF /* HTTPClientSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE83AFFD293E3D0A0055D8DF /* HTTPClientSpy.swift */; };
+		DEBF2F21293EBBAB00F3940F /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEBF2F20293EBBAB00F3940F /* Config.swift */; };
+		DEBF2F23293EBC3F00F3940F /* SchedulerTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEBF2F22293EBC3F00F3940F /* SchedulerTimer.swift */; };
 		DEC8F1E8293E956C00F8BEF2 /* CurrencyDetailUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEC8F1E7293E956C00F8BEF2 /* CurrencyDetailUseCaseTests.swift */; };
 		DEC8F1EA293E9D9500F8BEF2 /* ResourcePriceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEC8F1E9293E9D9500F8BEF2 /* ResourcePriceTests.swift */; };
 		DEC8F1ED293EA61500F8BEF2 /* MocksHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = DEC8F1EC293EA61500F8BEF2 /* MocksHelper.swift */; };
@@ -77,6 +79,8 @@
 		DE557094293D873F00100808 /* Resource+Price.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Resource+Price.swift"; sourceTree = "<group>"; };
 		DE83AFFA293E2A980055D8DF /* CurrentPriceUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentPriceUseCaseTests.swift; sourceTree = "<group>"; };
 		DE83AFFD293E3D0A0055D8DF /* HTTPClientSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClientSpy.swift; sourceTree = "<group>"; };
+		DEBF2F20293EBBAB00F3940F /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
+		DEBF2F22293EBC3F00F3940F /* SchedulerTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SchedulerTimer.swift; sourceTree = "<group>"; };
 		DEC8F1E7293E956C00F8BEF2 /* CurrencyDetailUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyDetailUseCaseTests.swift; sourceTree = "<group>"; };
 		DEC8F1E9293E9D9500F8BEF2 /* ResourcePriceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourcePriceTests.swift; sourceTree = "<group>"; };
 		DEC8F1EC293EA61500F8BEF2 /* MocksHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MocksHelper.swift; sourceTree = "<group>"; };
@@ -132,6 +136,7 @@
 				DE556F50293BC77600100808 /* Domain.h */,
 				DE557090293D867C00100808 /* ApiConstants.swift */,
 				DE557094293D873F00100808 /* Resource+Price.swift */,
+				DEBF2F20293EBBAB00F3940F /* Config.swift */,
 			);
 			path = Domain;
 			sourceTree = "<group>";
@@ -155,6 +160,7 @@
 				DE557009293C2B4800100808 /* HistoricalPricesUseCase.swift */,
 				DE557020293C336700100808 /* CurrentPriceUseCase.swift */,
 				DE55706E293CD1BC00100808 /* CurrencyDetailUseCase.swift */,
+				DEBF2F22293EBC3F00F3940F /* SchedulerTimer.swift */,
 			);
 			path = "Use cases";
 			sourceTree = "<group>";
@@ -331,6 +337,8 @@
 				DE557021293C336700100808 /* CurrentPriceUseCase.swift in Sources */,
 				DE557073293D281100100808 /* Price.swift in Sources */,
 				DE557082293D3DE500100808 /* Collection+SafeSubscript.swift in Sources */,
+				DEBF2F21293EBBAB00F3940F /* Config.swift in Sources */,
+				DEBF2F23293EBC3F00F3940F /* SchedulerTimer.swift in Sources */,
 				DE55700A293C2B4800100808 /* HistoricalPricesUseCase.swift in Sources */,
 				DE55707B293D322C00100808 /* RemoteCurrentPrice.swift in Sources */,
 				DE557075293D291000100808 /* HistoricalPrice.swift in Sources */,

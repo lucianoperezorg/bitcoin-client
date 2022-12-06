@@ -23,8 +23,8 @@ struct HistoryData : Decodable {
     }
     
     struct Prices: Decodable {
-        let usd: Double
-        let eur: Double
-        let gbp: Double
+        let usd: Double?
+        let eur: Double?
+        let gbp: Double?
     }
 }

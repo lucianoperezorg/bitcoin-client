@@ -59,7 +59,7 @@ final class HistoricalPricesUseCaseTests: XCTestCase {
     func test_load_deliversErrorOn200HTTPResponseWithInvalidaJSON() {
       let (sut, client) = makeSUT()
         expect(sut: sut, toCompleteWith: failure(.dataCorrupted), when: {
-        client.complete(withStatusCode: 200, data: anyInvalidaData)
+        client.complete(withStatusCode: 200, data: anyInvalidData)
       })
     }
     
@@ -98,6 +98,7 @@ final class HistoricalPricesUseCaseTests: XCTestCase {
         client.complete(withStatusCode: 200, data: json)
       }
     }
+    
     //MARK: helpers
     private func makePrice(price: Double, currency: Currency = .EUR ,date: Date) ->
     (model: HistoricalPrice, Json: [Double]) {

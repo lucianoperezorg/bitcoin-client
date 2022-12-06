@@ -17,18 +17,19 @@ public final class HistoricalPricesUseCase: HistoricalPricesUseCaseType {
     private let url: URL
     private let client: HTTPClient
     
+    private var ok200: Int { return 200 }
+    
     public init(url: URL, client: HTTPClient) {
         self.url = url
         self.client = client
     }
     
-    //TODO: move this from here
-    private  var OK_200: Int { return 200 }
     public func load(completion: @escaping (HistoricalPricesResult) -> Void) {
-        client.get(from: url) { result in
+        client.get(from: url) { [weak self] result in
+            guard let self = self else { return }
             switch result {
             case let .success((data, response)):
-                guard response.statusCode == self.OK_200 else {  return completion(.failure(PriceError.invalidData)) }
+                guard response.statusCode == self.ok200 else {  return completion(.failure(PriceError.invalidData)) }
                 try? completion(HistoricalPricesUseCase.map(data, response: response))
             case .failure:
                 completion(.failure(PriceError.invalidData))
@@ -57,14 +58,19 @@ public enum PriceError: Error, Equatable {
 private extension RemotePrices {
     func toModel() -> [HistoricalPrice] {
         let prices: [HistoricalPrice?] = self.prices.compactMap {
-            guard let timeIntervalValue = $0.first,
+            guard let timeInterval = $0.first,
                   let price = $0[safe: 1] else { return nil }
-        
-            let dateTimeInterval = TimeInterval(timeIntervalValue / 1000.0)
-            let date = Date(timeIntervalSince1970: TimeInterval(dateTimeInterval))
-            return HistoricalPrice(price: price, currency: .EUR, date: date)
+            let date = Date(timeInterval: timeInterval)
+            return HistoricalPrice(price: price, currency: Config.DEFAULT_CURRENCY, date: date)
         }
         return prices.compactMap{ $0 }
     }
 }
 
+//MARK: - Date extension
+private extension Date {
+    init(timeInterval: Double) {
+        let dateTimeInterval = TimeInterval(timeInterval / 1000.0)
+        self = Date(timeIntervalSince1970: TimeInterval(dateTimeInterval))
+    }
+}

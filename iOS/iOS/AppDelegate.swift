@@ -18,7 +18,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let window = UIWindow(frame: UIScreen.main.bounds)
         
         let historicalPricesUseCase = HistoricalPricesUseCase(url: Resource.historicalPrices.resolveUrl!, client: URLSessionHTTPClient())
-        let currentPriceUseCase = CurrentPriceUseCase(url: Resource.currentPrice.resolveUrl!, client: URLSessionHTTPClient())
+        let currentPriceUseCase = CurrentPriceUseCase(url: Resource.currentPrice.resolveUrl!, client: URLSessionHTTPClient(), schedulerTimer: SchedulerTimer(frecuency: 60, repeats: true))
+        
         let navigator = UINavigationController(rootViewController: BitcoinListViewController(historicalPrices: historicalPricesUseCase, currentPrice: currentPriceUseCase))
         
         window.rootViewController = navigator

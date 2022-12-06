@@ -15,6 +15,6 @@ func anyUrl() -> URL {
     URL(string: "http://a-given-url.com")!
 }
 
-var anyInvalidaData: Data {
-    Data("invalida json".utf8)
+var anyInvalidData: Data {
+    Data("invalid json".utf8)
 }
