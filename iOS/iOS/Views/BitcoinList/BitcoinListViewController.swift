@@ -32,7 +32,6 @@ class BitcoinListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         self.bind()
         self.viewModel.viewLoaded()
         self.configureTableView()
@@ -72,11 +71,13 @@ class BitcoinListViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: animated)
         viewModel.appBecameActive()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: animated)
         viewModel.appBecameInactive()
     }
     
@@ -106,8 +107,11 @@ extension BitcoinListViewController: UITableViewDataSource, UITableViewDelegate 
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath)
-        cell.textLabel?.text = viewModel.getTitleFor(index: indexPath.row)
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as! HistoricalPriceTableViewCell
+        
+        let price = viewModel.historicalBinderAt(index: indexPath.row)
+        cell.configureCellFor(price)
+    
         return cell
     }
     
@@ -126,6 +130,7 @@ extension BitcoinListViewController: UITableViewDataSource, UITableViewDelegate 
     private func configureTableView() {
         historicalPricesTableView.delegate = self
         historicalPricesTableView.dataSource = self
-        historicalPricesTableView.register(UITableViewCell.self, forCellReuseIdentifier: cellId)
+        let textFieldCell = UINib(nibName: String(describing: HistoricalPriceTableViewCell.self), bundle: nil)
+        historicalPricesTableView.register(textFieldCell, forCellReuseIdentifier: "cellId")
     }
 }

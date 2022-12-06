@@ -21,14 +21,6 @@ final class BitcoinDetailViewControllerTests: XCTestCase {
         XCTAssertNotNil(sut.tableView.dataSource)
     }
     
-    func test_loadView_titleLabelRendersCorrectly() {
-        let date = Date()
-        let (sut, _) = makeSUT(date: date)
-        
-        _ = sut.view
-        XCTAssertEqual(sut.titleLabel.text, "Bitcon price on \(date.toString())")
-    }
-    
     func test_loadView_currencyListRenderOnScreen() {
         let date = Date()
         let (sut, detailUseCase) = makeSUT(date: date)
@@ -41,8 +33,8 @@ final class BitcoinDetailViewControllerTests: XCTestCase {
 
         let cellAtIndex0 = try? XCTUnwrap(getCellAt(tableView: sut.tableView))
         let cellAtIndex1 = try? XCTUnwrap(getCellAt(tableView: sut.tableView, index: 1))
-        XCTAssertEqual(cellAtIndex0?.textLabel?.text, "EUR : 1")
-        XCTAssertEqual(cellAtIndex1?.textLabel?.text, "USD : 2")
+        XCTAssertEqual(cellAtIndex0?.textLabel?.text, "\(Currency.EUR.icon) 1 \(Currency.EUR.description)")
+        XCTAssertEqual(cellAtIndex1?.textLabel?.text, "\(Currency.USD.icon) 2 \(Currency.USD.description)")
         XCTAssertEqual(sut.errorLabel.alpha, 0)
     }
     

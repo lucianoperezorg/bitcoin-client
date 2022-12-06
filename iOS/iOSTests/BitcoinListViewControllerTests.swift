@@ -26,7 +26,6 @@ final class BitcoinListViewControllerTests: XCTestCase {
         
         _ = sut.view
         
-        
         XCTAssertTrue(sut.historicalErrorStackView.alpha == 0)
         XCTAssertTrue(sut.historicalActivityIndicator.isHidden == false)
         XCTAssertTrue(sut.historicalActivityIndicator.isAnimating == true)
@@ -36,7 +35,6 @@ final class BitcoinListViewControllerTests: XCTestCase {
         let (sut, _, _) = makeSUT()
         
         _ = sut.view
-        
         
         XCTAssertTrue(sut.historicalErrorStackView.alpha == 0)
     }
@@ -49,9 +47,8 @@ final class BitcoinListViewControllerTests: XCTestCase {
         
         let price = Price(value: 234.3, currency: .EUR)
         currentPriceUseCase.priceResultHandler?(.success(price))
-        
         let expectedDateStr = date.toString(dateFormat: "HH:mm:ss")
-        XCTAssertEqual(sut.currentPriceLabel.text, "234.3 EUR")
+        XCTAssertEqual(sut.currentPriceLabel.text, "234.3 \(Currency.EUR.description)")
         XCTAssertEqual(sut.currentPriceInfoLabel.text, "\(expectedDateStr) - real-time data")
     }
     
@@ -70,7 +67,6 @@ final class BitcoinListViewControllerTests: XCTestCase {
     func test_load_historicalPricesLoadCorrectly() {
         let date = Date()
         let (sut, _, historial) = makeSUT(date: date)
-        let dateString = date.toString()
         let historicalPrice = HistoricalPrice(price: 23.3, currency: .EUR, date: Date())
         historial.stubLoadResult = .success([historicalPrice])
         _ = sut.view
@@ -80,7 +76,9 @@ final class BitcoinListViewControllerTests: XCTestCase {
         XCTAssertTrue(sut.historicalErrorStackView.alpha == 0)
         
         let cell = try? XCTUnwrap(getCellAt(tableView: sut.historicalPricesTableView))
-        XCTAssertEqual(cell?.textLabel?.text, "23 EUR - \(dateString)")
+        XCTAssertEqual(cell?.priceLabel.text, "23")
+        XCTAssertEqual(cell?.currencyLabel.text, Currency.EUR.description)
+        XCTAssertEqual(cell?.dateLabel.text, date.toString(dateFormat: "MMM d, yyyy"))
     }
     
     func test_load_historicalPricesErrorShowsCorrectly() {
@@ -143,17 +141,15 @@ final class BitcoinListViewControllerTests: XCTestCase {
         
         let cell0 = try? XCTUnwrap(getCellAt(tableView: sut.historicalPricesTableView,index: 0))
         let cell1 = try? XCTUnwrap(getCellAt(tableView: sut.historicalPricesTableView,index: 1))
-        
-        XCTAssertEqual(cell0?.textLabel?.text, "\(Int(price)) EUR - \(yesterday.toString())")
-        XCTAssertEqual(cell1?.textLabel?.text, "\(Int(price)) EUR - \(dayBeforeYesterday.toString())")
+        XCTAssertEqual(cell0?.dateLabel?.text, yesterday.toString(dateFormat: "MMM d, yyyy"))
+        XCTAssertEqual(cell1?.dateLabel?.text, dayBeforeYesterday.toString(dateFormat: "MMM d, yyyy"))
     }
     
-    
     //MARK: - Helpers
-    private func getCellAt(tableView: UITableView, index: Int = 0) -> UITableViewCell? {
+    private func getCellAt(tableView: UITableView, index: Int = 0) -> HistoricalPriceTableViewCell? {
         let indexPath =  IndexPath(row: index, section: 0)
         let cell = tableView.dataSource?.tableView(tableView, cellForRowAt: indexPath)
-        return cell
+        return cell as? HistoricalPriceTableViewCell
     }
     
     private func makeSUT(date: Date = Date()) ->

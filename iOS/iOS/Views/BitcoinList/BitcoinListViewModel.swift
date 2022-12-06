@@ -16,6 +16,8 @@ final class BitcoinListViewModel {
     private let mainDispatchQueue: DispatchQueueType
     private let currentDate: (() -> Date)
     
+    var pricesCount: Int { historicalPrices.count }
+
     init(historicalPrices: HistoricalPricesUseCaseType, currentPrice: CurrentPriceUseCaseType, mainDispatchQueue: DispatchQueueType = DispatchQueue.main, currentDate: @escaping (() -> Date) = { Date() } ) {
         self.currentPrice = currentPrice
         self.historicalPricesUseCase = historicalPrices
@@ -42,11 +44,6 @@ final class BitcoinListViewModel {
                 self.handledCurrentUpdated(with: result)
             }
         }
-    }
-    
-    struct CurrectPriceBinder {
-        let currentPrice: String
-        let updateMessage: String
     }
     
     var onCurrectLoaded: ((CurrectPriceBinder) -> Void)?
@@ -87,15 +84,19 @@ final class BitcoinListViewModel {
             }
         }
     }
-    var pricesCount: Int { historicalPrices.count }
     
     func priceAt(index: Int) -> HistoricalPrice {
         return historicalPrices[index]
     }
-
+     
+    func historicalBinderAt(index: Int) -> HistoricalPriceBinder {
+        let price = priceAt(index: index)
+        return HistoricalPriceBinder(date: price.date.toString(dateFormat: "MMM d, yyyy"), price: "\(Int(price.price))", currency: price.currency.description)
+    }
+    
     func getTitleFor(index: Int) -> String {
         let price = priceAt(index: index)
-        return "\(Int(price.price)) \(price.currency.description) - \(price.date.toString())"
+        return "\(Int(price.price)) \(price.currency.description) on \(price.date.toString())"
     }
     
     func handleLoadHistoricalResult(_ result: HistoricalPricesResult) {
@@ -116,4 +117,14 @@ final class BitcoinListViewModel {
     }
 }
 
+//MARK: - UI binders
+struct HistoricalPriceBinder {
+    let date: String
+    let price: String
+    let currency: String
+}
 
+struct CurrectPriceBinder {
+    let currentPrice: String
+    let updateMessage: String
+}

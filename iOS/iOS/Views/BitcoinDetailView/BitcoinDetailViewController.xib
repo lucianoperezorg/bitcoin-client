@@ -14,7 +14,6 @@
                 <outlet property="errorLabel" destination="auR-vc-4TM" id="Zjd-H9-dVK"/>
                 <outlet property="loadingActivityIndicator" destination="ySt-hn-yDi" id="0Sj-0u-YSd"/>
                 <outlet property="tableView" destination="Mys-MN-lKK" id="rmG-yB-jW0"/>
-                <outlet property="titleLabel" destination="yDB-Oa-4PI" id="OFR-6a-2lq"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -28,15 +27,9 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </activityIndicatorView>
                 <tableView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Mys-MN-lKK">
-                    <rect key="frame" x="16" y="213" width="361" height="639"/>
+                    <rect key="frame" x="16" y="89" width="361" height="763"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                 </tableView>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Price of bitcoin on the 2022/01/10" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yDB-Oa-4PI">
-                    <rect key="frame" x="16" y="109" width="361" height="24"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
                 <label opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Error message" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="auR-vc-4TM">
                     <rect key="frame" x="141.33333333333334" y="415.66666666666669" width="110.33333333333334" height="21"/>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -47,14 +40,11 @@
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
+                <constraint firstItem="Mys-MN-lKK" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="30" id="1J0-k2-ryM"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Mys-MN-lKK" secondAttribute="trailing" constant="16" id="7Cg-gr-Xyf"/>
-                <constraint firstItem="Mys-MN-lKK" firstAttribute="height" secondItem="i5M-Pr-FkT" secondAttribute="height" multiplier="0.75" id="HrK-yQ-Vao"/>
-                <constraint firstItem="yDB-Oa-4PI" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="50" id="PNF-1b-h9O"/>
                 <constraint firstItem="auR-vc-4TM" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="Twp-r2-u3q"/>
                 <constraint firstItem="auR-vc-4TM" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="VoW-HO-HOB"/>
-                <constraint firstItem="yDB-Oa-4PI" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="WnX-tF-MgQ"/>
                 <constraint firstItem="Mys-MN-lKK" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="16" id="ac6-pb-wNl"/>
-                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="yDB-Oa-4PI" secondAttribute="trailing" constant="16" id="kKR-Fw-miv"/>
                 <constraint firstAttribute="bottom" secondItem="Mys-MN-lKK" secondAttribute="bottom" id="shY-2O-6LL"/>
             </constraints>
             <point key="canvasLocation" x="35.877862595419849" y="0.0"/>

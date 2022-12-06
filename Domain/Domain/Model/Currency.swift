@@ -12,9 +12,17 @@ public enum Currency: String {
     
     public var description: String {
         switch self {
-        case .EUR: return "EUR"
-        case .USD: return "USD"
-        case .GBP: return "GBP"
+        case .EUR: return "eur"
+        case .USD: return "usd"
+        case .GBP: return "gbp"
+        }
+    }
+    
+    public var icon: String {
+        switch self {
+        case .EUR: return "🇪🇺"
+        case .USD: return "🇺🇸"
+        case .GBP: return "🇬🇧"
         }
     }
 }

@@ -9,7 +9,6 @@ import UIKit
 
 class BitcoinDetailViewController: UIViewController {
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var loadingActivityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var errorLabel: UILabel!
     
@@ -25,7 +24,7 @@ class BitcoinDetailViewController: UIViewController {
         
         self.bind()
         self.viewModel.viewLoaded()
-        self.titleLabel.text = viewModel.title
+        self.title = viewModel.title
         self.configureTableView()
     }
     
@@ -46,13 +45,11 @@ class BitcoinDetailViewController: UIViewController {
     private func configureViewAsLoading() {
         self.loadingActivityIndicator.startAnimating()
         self.loadingActivityIndicator.alpha = 1
-        self.titleLabel.alpha = 0
     }
     
     private func loadedPricesSuccessfully() {
         self.loadingActivityIndicator.stopAnimating()
         self.loadingActivityIndicator.alpha = 0.0
-        self.titleLabel.alpha = 1
         self.errorLabel.alpha = 0
         self.tableView.reloadData()
     }

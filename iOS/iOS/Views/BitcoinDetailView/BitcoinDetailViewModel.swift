@@ -38,7 +38,7 @@ final class BitcoinDetailViewModel {
 
     func getTitleFor(index: Int) -> String {
         let price = priceAt(index: index)
-        return "\(price.currency.description) : \(Int(price.value))"
+        return "\(price.currency.icon) \(Int(price.value)) \(price.currency.description)"
     }
     
     private func loadingCurrencyDetail() {
