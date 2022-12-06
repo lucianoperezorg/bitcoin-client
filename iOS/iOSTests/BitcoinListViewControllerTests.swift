@@ -21,6 +21,26 @@ final class BitcoinListViewControllerTests: XCTestCase {
         XCTAssertNotNil(sut.historicalPricesTableView.dataSource)
     }
     
+    func test_init_activityIndicatorWillRun() {
+        let (sut, _, _) = makeSUT()
+        
+        _ = sut.view
+        
+        
+        XCTAssertTrue(sut.historicalErrorStackView.alpha == 0)
+        XCTAssertTrue(sut.historicalActivityIndicator.isHidden == false)
+        XCTAssertTrue(sut.historicalActivityIndicator.isAnimating == true)
+    }
+    
+    func test_init_historicalErrorIsHidden() {
+        let (sut, _, _) = makeSUT()
+        
+        _ = sut.view
+        
+        
+        XCTAssertTrue(sut.historicalErrorStackView.alpha == 0)
+    }
+    
     func test_price_loadCurrentPriceWithTheCorrectLabels() {
         let date = Date()
         let (sut, currentPriceUseCase, _) = makeSUT(date: date)

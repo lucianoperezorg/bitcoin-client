@@ -31,7 +31,7 @@ class BitcoinListViewModel {
         self.currentPrice.stopObserving()
     }
     
-    public func viewDidLoad() {
+    public func viewLoaded() {
         loadHistoricalPrice()
         loadCurrentPrice()
     }
@@ -44,12 +44,12 @@ class BitcoinListViewModel {
         }
     }
     
-    struct CurrectPrice {
+    struct CurrectPriceBinder {
         let currentPrice: String
         let updateMessage: String
     }
     
-    var onCurrectLoaded: ((CurrectPrice) -> Void)?
+    var onCurrectLoaded: ((CurrectPriceBinder) -> Void)?
     private func handledCurrentUpdated(with result: CurrentPriceResult) {
         switch result {
         case .success(let price):
@@ -63,17 +63,17 @@ class BitcoinListViewModel {
         }
     }
     
-    private var currentPriceErrorMessage: CurrectPrice {
+    private var currentPriceErrorMessage: CurrectPriceBinder {
         let updateMessage  = "00.0000 Euros"
         let currenctPriceMessage  = "An error occurred trying to get the current price."
-        let currectPrice = CurrectPrice(currentPrice: updateMessage, updateMessage: currenctPriceMessage)
+        let currectPrice = CurrectPriceBinder(currentPrice: updateMessage, updateMessage: currenctPriceMessage)
         return currectPrice
     }
     
-    private func currentPriceSuccessMessage(price: Price) -> CurrectPrice {
+    private func currentPriceSuccessMessage(price: Price) -> CurrectPriceBinder {
         let upDateMessage = "\(self.currentDate().toString(dateFormat: "HH:mm:ss")) - real-time data"
         let currenctPriceMessage = "\(price.value) \(price.currency.description)"
-        let currectPrice = CurrectPrice(currentPrice: currenctPriceMessage, updateMessage: upDateMessage)
+        let currectPrice = CurrectPriceBinder(currentPrice: currenctPriceMessage, updateMessage: upDateMessage)
         return currectPrice
     }
     
@@ -93,7 +93,6 @@ class BitcoinListViewModel {
         case .success(let prices):
             historicalPrices = prices.sorted(by: { $0.date > $1.date })
             onHistoricalPriceLoadedSucess?()
-            
         case .failure:
             onHistoricalPriceLoadedFail?()
         }

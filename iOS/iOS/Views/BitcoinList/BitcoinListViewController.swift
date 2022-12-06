@@ -33,10 +33,15 @@ class BitcoinListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         self.bind()
-        self.viewModel.viewDidLoad()
+        self.viewModel.viewLoaded()
         self.configureTableView()
+        self.setNotifications()
        
+    }
+    
+    private func setNotifications() {
         let notificationCenter = NotificationCenter.default
         notificationCenter.addObserver(self, selector: #selector(appMovedToBackground), name: UIApplication.willResignActiveNotification, object: nil)
         

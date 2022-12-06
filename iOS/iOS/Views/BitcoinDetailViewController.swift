@@ -44,14 +44,14 @@ class BitcoinDetailViewController: UIViewController {
             switch result {
             case .success(let prices):
                 self.prices = prices
-                self.loadPricesSuccesffuly()
+                self.loadedPricesSuccessfully()
             case .failure:
                 self.presentErrorAlert()
             }
         }
     }
     
-    private func loadPricesSuccesffuly() {
+    private func loadedPricesSuccessfully() {
         mainDispatchQueue.async {
             self.loadingActivityIndicator.stopAnimating()
             self.loadingActivityIndicator.alpha = 0.0

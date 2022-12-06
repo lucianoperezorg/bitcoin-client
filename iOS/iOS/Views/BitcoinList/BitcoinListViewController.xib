@@ -57,7 +57,7 @@
                         <outletCollection property="gestureRecognizers" destination="eaU-sf-Voc" appends="YES" id="OS4-1Z-BKG"/>
                     </connections>
                 </stackView>
-                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="0Qf-Jz-dMf">
+                <stackView opaque="NO" alpha="0.0" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="0Qf-Jz-dMf">
                     <rect key="frame" x="118.33333333333333" y="393.66666666666669" width="156.66666666666669" height="64.666666666666686"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="There were an issue." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wg3-TI-Na0">
