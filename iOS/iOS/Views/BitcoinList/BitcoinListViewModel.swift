@@ -9,8 +9,8 @@ import Foundation
 import Domain
 import HTTPNetwork
 
-class BitcoinListViewModel {
-    var historicalPrices = [HistoricalPrice]()
+final class BitcoinListViewModel {
+    private var historicalPrices = [HistoricalPrice]()
     private let historicalPricesUseCase: HistoricalPricesUseCaseType
     private var currentPrice: CurrentPriceUseCaseType
     private let mainDispatchQueue: DispatchQueueType
@@ -87,6 +87,16 @@ class BitcoinListViewModel {
             }
         }
     }
+    var pricesCount: Int { historicalPrices.count }
+    
+    func priceAt(index: Int) -> HistoricalPrice {
+        return historicalPrices[index]
+    }
+
+    func getTitleFor(index: Int) -> String {
+        let price = priceAt(index: index)
+        return "\(Int(price.price)) \(price.currency.description) - \(price.date.toString())"
+    }
     
     func handleLoadHistoricalResult(_ result: HistoricalPricesResult) {
         switch result {
@@ -98,10 +108,11 @@ class BitcoinListViewModel {
         }
     }
     
-    func getCurrencyDetailUseCase(for date: Date) -> CurrencyDetailUseCase? {
+    func getDetailViewModel(for date: Date) -> BitcoinDetailViewModel? {
         guard let url = Resource.PricesDetail(dateString: date.toString()).resolveUrl else { return nil }
         let currencyDetail = CurrencyDetailUseCase(url: url, client: URLSessionHTTPClient())
-        return currencyDetail
+        let viewModel = BitcoinDetailViewModel(currencyDetailUseCase: currencyDetail, selectedDate: date)
+        return viewModel
     }
 }
 

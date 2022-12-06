@@ -7,7 +7,6 @@
 
 import UIKit
 
-
 class BitcoinListViewController: UIViewController {
     @IBOutlet weak var historicalPricesTableView: UITableView!
     @IBOutlet weak var currentPriceLabel: UILabel!
@@ -38,7 +37,6 @@ class BitcoinListViewController: UIViewController {
         self.viewModel.viewLoaded()
         self.configureTableView()
         self.setNotifications()
-       
     }
     
     private func setNotifications() {
@@ -101,34 +99,33 @@ class BitcoinListViewController: UIViewController {
 
 //MARK: - UITableViewDataSource, UITableViewDelegate
 extension BitcoinListViewController: UITableViewDataSource, UITableViewDelegate {
+    private var cellId: String { return "cellId" }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        viewModel.historicalPrices.count
+        viewModel.pricesCount
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cellId", for: indexPath)
-        let price = viewModel.historicalPrices[indexPath.row]
-        
-        cell.textLabel?.text = "\(Int(price.price)) \(price.currency.description) - \(price.date.toString())"
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath)
+        cell.textLabel?.text = viewModel.getTitleFor(index: indexPath.row)
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        
-        let price = viewModel.historicalPrices[indexPath.row]
+        let price = viewModel.priceAt(index: indexPath.row)
         navigateTo(date: price.date)
     }
     
     private func navigateTo(date: Date) {
-        guard let currencyDetail = viewModel.getCurrencyDetailUseCase(for: date) else { return }
-        let vc = BitcoinDetailViewController(currencyDetailUseCase: currencyDetail, selectedDate: date)
+        guard let viewModel = viewModel.getDetailViewModel(for: date) else { return }
+        let vc = BitcoinDetailViewController(viewModel: viewModel)
         navigationController?.pushViewController(vc, animated: true)
     }
     
     private func configureTableView() {
         historicalPricesTableView.delegate = self
         historicalPricesTableView.dataSource = self
-        historicalPricesTableView.register(UITableViewCell.self, forCellReuseIdentifier: "cellId")
+        historicalPricesTableView.register(UITableViewCell.self, forCellReuseIdentifier: cellId)
     }
 }

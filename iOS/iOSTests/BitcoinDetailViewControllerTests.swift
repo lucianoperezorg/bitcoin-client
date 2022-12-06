@@ -41,7 +41,6 @@ final class BitcoinDetailViewControllerTests: XCTestCase {
 
         let cellAtIndex0 = try? XCTUnwrap(getCellAt(tableView: sut.tableView))
         let cellAtIndex1 = try? XCTUnwrap(getCellAt(tableView: sut.tableView, index: 1))
-        XCTAssertEqual(sut.tableView.numberOfRows(inSection: 0), 2)
         XCTAssertEqual(cellAtIndex0?.textLabel?.text, "EUR : 1")
         XCTAssertEqual(cellAtIndex1?.textLabel?.text, "USD : 2")
         XCTAssertEqual(sut.errorLabel.alpha, 0)
@@ -54,6 +53,7 @@ final class BitcoinDetailViewControllerTests: XCTestCase {
         let anyError = NSError(domain: "Any error", code: 0)
         detailUseCase.currencyDetailResultStub = .failure(anyError)
         _ = sut.view
+        
         XCTAssertEqual(sut.tableView.numberOfRows(inSection: 0), 0)
         XCTAssertEqual(sut.errorLabel.alpha, 1)
     }
@@ -69,7 +69,8 @@ final class BitcoinDetailViewControllerTests: XCTestCase {
     (sut: BitcoinDetailViewController, currencyDetailUseCase: CurrencyDetailUseCaseMock) {
         
         let currencyDetailUseCase = CurrencyDetailUseCaseMock()
-        let sut = BitcoinDetailViewController(currencyDetailUseCase: currencyDetailUseCase, selectedDate: date, mainDispatchQueue: DispatchQueueMock())
+        let viewModel = BitcoinDetailViewModel(currencyDetailUseCase: currencyDetailUseCase, selectedDate: date, mainDispatchQueue: DispatchQueueMock())
+        let sut = BitcoinDetailViewController(viewModel: viewModel)
 
         return (sut, currencyDetailUseCase)
     }
