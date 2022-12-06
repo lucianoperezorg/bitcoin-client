@@ -13,51 +13,59 @@ class BitcoinDetailViewController: UIViewController {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var loadingActivityIndicator: UIActivityIndicatorView!
     
+    @IBOutlet weak var errorLabel: UILabel!
     private let currencyDetailUseCase: CurrencyDetailUseCaseType
     private var prices = [Price]()
     private let selectedDate: Date
+    private let mainDispatchQueue: DispatchQueueType
     
-    init(currencyDetailUseCase: CurrencyDetailUseCaseType, selectedDate: Date) {
+    init(currencyDetailUseCase: CurrencyDetailUseCaseType, selectedDate: Date,
+         mainDispatchQueue: DispatchQueueType = DispatchQueue.main) {
         self.currencyDetailUseCase = currencyDetailUseCase
         self.selectedDate = selectedDate
+        self.mainDispatchQueue = mainDispatchQueue
         super.init(nibName: nil, bundle: nil)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.dataSource = self
-        tableView.delegate = self
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cellId")
+       
+        self.titleLabel.text = "Bitcon price on \(selectedDate.toString())"
+        self.loadingActivityIndicator.startAnimating()
+        self.loadingActivityIndicator.alpha = 1
+        self.titleLabel.alpha = 0
         
-        titleLabel.text = "Bitcon price on \(selectedDate.toString())"
-        
-        loadingActivityIndicator.startAnimating()
-        loadingActivityIndicator.alpha = 1
-        titleLabel.alpha = 0
-
+        self.configureTableView()
+        self.startLoadingCurrencyDetail()
+    }
+    
+    private func startLoadingCurrencyDetail() {
         currencyDetailUseCase.currencyDetail { result in
-            
             switch result {
             case .success(let prices):
-                DispatchQueue.main.async {
-                    self.prices = prices
-                    self.loadingActivityIndicator.stopAnimating()
-                    self.loadingActivityIndicator.alpha = 0.0
-                    self.titleLabel.alpha = 1
-                    self.tableView.reloadData()
-                }
+                self.prices = prices
+                self.loadPricesSuccesffuly()
             case .failure:
-                self.presentAlert()
+                self.presentErrorAlert()
             }
         }
     }
     
-    private func presentAlert() {
-        let alert = UIAlertController(title: "Internal Error", message: "An error occurred, please go back and try again.", preferredStyle: UIAlertController.Style.alert)
-        alert.addAction(UIAlertAction(title: "Back", style: UIAlertAction.Style.default, handler: { _ in
-            self.navigationController?.popToRootViewController(animated: true)
-        }))
-        self.present(alert, animated: true, completion: nil)
+    private func loadPricesSuccesffuly() {
+        mainDispatchQueue.async {
+            self.loadingActivityIndicator.stopAnimating()
+            self.loadingActivityIndicator.alpha = 0.0
+            self.titleLabel.alpha = 1
+            self.errorLabel.alpha = 0
+            self.tableView.reloadData()
+        }
+    }
+    
+    private func presentErrorAlert() {
+        mainDispatchQueue.async {
+            self.errorLabel.alpha = 1
+            self.errorLabel.text = "An error occured, please go back and try it again."
+        }
     }
     
     required init?(coder: NSCoder) {
@@ -77,5 +85,11 @@ extension BitcoinDetailViewController: UITableViewDataSource, UITableViewDelegat
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         prices.count
+    }
+    
+    private func configureTableView() {
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cellId")
     }
 }

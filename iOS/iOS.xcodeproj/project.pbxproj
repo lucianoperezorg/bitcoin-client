@@ -11,6 +11,7 @@
 		DE1B0976293ED2AE00EA901E /* DispatchQueueType.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE1B0975293ED2AE00EA901E /* DispatchQueueType.swift */; };
 		DE1B0979293EDA9800EA901E /* DispatchQueueMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE1B0978293EDA9800EA901E /* DispatchQueueMock.swift */; };
 		DE1B097B293EE71300EA901E /* Mocks.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE1B097A293EE71300EA901E /* Mocks.swift */; };
+		DE1B097D293F550800EA901E /* BitcoinDetailViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE1B097C293F550800EA901E /* BitcoinDetailViewControllerTests.swift */; };
 		DE55702F293CCE2600100808 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE55702E293CCE2600100808 /* AppDelegate.swift */; };
 		DE557038293CCE2700100808 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DE557037293CCE2700100808 /* Assets.xcassets */; };
 		DE55703B293CCE2700100808 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DE557039293CCE2700100808 /* LaunchScreen.storyboard */; };
@@ -56,6 +57,7 @@
 		DE1B0975293ED2AE00EA901E /* DispatchQueueType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchQueueType.swift; sourceTree = "<group>"; };
 		DE1B0978293EDA9800EA901E /* DispatchQueueMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DispatchQueueMock.swift; sourceTree = "<group>"; };
 		DE1B097A293EE71300EA901E /* Mocks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mocks.swift; sourceTree = "<group>"; };
+		DE1B097C293F550800EA901E /* BitcoinDetailViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BitcoinDetailViewControllerTests.swift; sourceTree = "<group>"; };
 		DE55702B293CCE2600100808 /* iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE55702E293CCE2600100808 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DE557037293CCE2700100808 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -147,6 +149,7 @@
 			children = (
 				DE1B0977293EDA8E00EA901E /* Helper */,
 				DE1B0972293ECEC600EA901E /* BitcoinListViewControllerTests.swift */,
+				DE1B097C293F550800EA901E /* BitcoinDetailViewControllerTests.swift */,
 			);
 			path = iOSTests;
 			sourceTree = "<group>";
@@ -298,6 +301,7 @@
 			files = (
 				DE1B0973293ECEC600EA901E /* BitcoinListViewControllerTests.swift in Sources */,
 				DE1B0979293EDA9800EA901E /* DispatchQueueMock.swift in Sources */,
+				DE1B097D293F550800EA901E /* BitcoinDetailViewControllerTests.swift in Sources */,
 				DE1B097B293EE71300EA901E /* Mocks.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
