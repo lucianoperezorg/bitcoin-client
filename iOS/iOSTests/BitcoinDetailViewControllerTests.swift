@@ -74,14 +74,3 @@ final class BitcoinDetailViewControllerTests: XCTestCase {
         return (sut, currencyDetailUseCase)
     }
 }
-
-class CurrencyDetailUseCaseMock: CurrencyDetailUseCaseType {
-    var currencyDetailResultStub: CurrencyDetailResult?
-    func currencyDetail(completion: @escaping (Domain.CurrencyDetailResult) -> Void) {
-        if let currencyDetailResultStub = currencyDetailResultStub {
-            completion(currencyDetailResultStub)
-        }
-    }
-    
-    
-}

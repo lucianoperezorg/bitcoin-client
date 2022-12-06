@@ -32,3 +32,12 @@ class CurrentPriceUseCaseMock: CurrentPriceUseCaseType {
     
     var priceResultHandler: ((Domain.CurrentPriceResult) -> Void)?
 }
+
+class CurrencyDetailUseCaseMock: CurrencyDetailUseCaseType {
+    var currencyDetailResultStub: CurrencyDetailResult?
+    func currencyDetail(completion: @escaping (Domain.CurrencyDetailResult) -> Void) {
+        if let currencyDetailResultStub = currencyDetailResultStub {
+            completion(currencyDetailResultStub)
+        }
+    }
+}
