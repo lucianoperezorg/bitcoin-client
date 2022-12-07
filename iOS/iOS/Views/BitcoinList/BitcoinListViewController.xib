@@ -65,6 +65,7 @@
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00.0000 Euros " textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xC4-rf-yBv">
                             <rect key="frame" x="88.333333333333329" y="42.666666666666657" width="184.66666666666669" height="34.666666666666657"/>
+                            <accessibility key="accessibilityConfiguration" identifier="currenctPriceLabel"/>
                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="26"/>
                             <nil key="textColor"/>
                             <nil key="highlightedColor"/>

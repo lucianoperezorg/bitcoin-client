@@ -4,7 +4,13 @@
  Xcode version 14.1 
  Minimum target iOS 11
 
-## Project rchitecture
+## Open Project
+Double click in the following workspace: `bitcoin-client.xcworkspace`
+
+## Run the app
+Select the target `iOS` then select run.
+
+## Project architecture
 The project is divided into 3 layers, iOS, Domain, and HTTPNetwork.
 - `iOS` is where the UI logic is. MVVM is used to separate the UI logic from the view controllers.
 - `Domain` is where all the app logic is contained. This is the Mac framework.
@@ -12,8 +18,9 @@ The project is divided into 3 layers, iOS, Domain, and HTTPNetwork.
 
 The reason why `Domain` and `HTTPNetwork` layers are mac framework is becaise they are agnostic to any UI implementation and also to speed up the testing in the app.
 
-*** Coordinator pattern was not implemented because the app is quite small which implemented it would overengineer the implementation.
+You can change the refresh frequency or the amount of day for the bitcoin Historical price in the struct `Config.swift`.
 
+*** Coordinator pattern was not implemented because the app is quite small which implemented it would overengineer the implementation.
 
 ## API used
 The website to retrieve the information is coingecko.com, please see the following URL for details: 
@@ -37,12 +44,12 @@ The second screen uses the following URL:
 - https://api.coingecko.com/api/v3/coins/bitcoin/history?date=01-12-2022&localization=false
 This URL provides the bitcoin price for a particular date in different currencies.
 
-## Run the app
-Select the target `iOS` then select run.
-
 ## Run test
 Select the target you want to test then press ctr+U.
-Targets avaialble: iOS, Domain and HTTPNetwork.
+Targets avaialble: `iOS`, `Domain`, `HTTPNetwork`, `UnitTestAllModule` `iOSUIEndToEndTest`.
+
+The schema `UnitestAllModule` contains all module unit tests but you can run them independently by selecting the schema and then ctrl+u.
+iOSUIEndToEndTest is to minimal UI test to test the navigation. This schema is not meant to be run. IE: The pipeline will have the rule to run it every time someone merges a new branch to develop a branch or when the app is going to be released.
 
 ## Author
 Luciano Perez 
