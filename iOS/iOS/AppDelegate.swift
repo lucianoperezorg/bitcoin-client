@@ -18,7 +18,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let window = UIWindow(frame: UIScreen.main.bounds)
         
         let historicalPricesUseCase = HistoricalPricesUseCase(url: Resource.historicalPrices.resolveUrl!, client: URLSessionHTTPClient())
-        let currentPriceUseCase = CurrentPriceUseCase(url: Resource.currentPrice.resolveUrl!, client: URLSessionHTTPClient(), schedulerTimer: SchedulerTimer(frecuency: 60, repeats: true))
+        let currentPriceUseCase = CurrentPriceUseCase(url: Resource.currentPrice.resolveUrl!, client: URLSessionHTTPClient(), schedulerTimer: SchedulerTimer(frecuency: Config.CURRENT_PRICE_FRECUENCY_SECONDS, repeats: true))
         
         let viewModel = BitcoinListViewModel(historicalPrices: historicalPricesUseCase, currentPrice: currentPriceUseCase)
         

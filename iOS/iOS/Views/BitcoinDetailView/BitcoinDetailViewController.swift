@@ -26,19 +26,25 @@ class BitcoinDetailViewController: UIViewController {
         self.viewModel.viewLoaded()
         self.title = viewModel.title
         self.configureTableView()
+        
+        if #available(iOS 13.0, *) {
+            loadingActivityIndicator.style = .large
+        } else {
+            loadingActivityIndicator.style = .whiteLarge
+        }
     }
     
     private func bind() {
-        viewModel.onSuccessLoadCurrenciesDetail = {
-            self.loadedPricesSuccessfully()
+        viewModel.onSuccessLoadCurrenciesDetail = { [weak self] in
+            self?.loadedPricesSuccessfully()
         }
         
-        viewModel.onFailLoadCurrenciesDetail = { message in
-            self.presentErrorAlert(message)
+        viewModel.onFailLoadCurrenciesDetail = { [weak self] message in
+            self?.presentErrorAlert(message)
         }
         
-        viewModel.onLoading = {
-            self.configureViewAsLoading()
+        viewModel.onLoading = { [weak self] in
+            self?.configureViewAsLoading()
         }
     }
     

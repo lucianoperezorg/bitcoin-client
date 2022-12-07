@@ -14,7 +14,7 @@ class BitcoinListViewController: UIViewController {
     @IBOutlet weak var retryHistoricalButton: UIButton!
     @IBOutlet weak var currentPriceInfoLabel: UILabel!
     @IBOutlet weak var historicalErrorStackView: UIStackView!
-
+    
     private let viewModel: BitcoinListViewModel
     
     init(viewModel: BitcoinListViewModel) {
@@ -36,6 +36,12 @@ class BitcoinListViewController: UIViewController {
         self.viewModel.viewLoaded()
         self.configureTableView()
         self.setNotifications()
+        
+        if #available(iOS 13.0, *) {
+            historicalActivityIndicator.style = .large
+        } else {
+            historicalActivityIndicator.style = .whiteLarge
+        }
     }
     
     private func setNotifications() {
@@ -46,18 +52,18 @@ class BitcoinListViewController: UIViewController {
     }
     
     private func bind() {
-        self.viewModel.onCurrectLoaded = { message in
-            self.currentPriceLabel.text = message.currentPrice
-            self.currentPriceInfoLabel.text = message.updateMessage
+        self.viewModel.onCurrectLoaded = { [weak self] message in
+            self?.currentPriceLabel.text = message.currentPrice
+            self?.currentPriceInfoLabel.text = message.updateMessage
         }
         
-        self.viewModel.onHistoricalPriceLoadedSucess = {
-            self.historicalPricesTableView.reloadData()
-            self.manageHistoricalSuccessResult()
+        self.viewModel.onHistoricalPriceLoadedSucess = { [weak self] in
+            self?.historicalPricesTableView.reloadData()
+            self?.manageHistoricalSuccessResult()
             
         }
-        self.viewModel.onHistoricalPriceLoadedFail = {
-            self.manageHistoricalErrorResult()
+        self.viewModel.onHistoricalPriceLoadedFail = { [weak self] in
+            self?.manageHistoricalErrorResult()
         }
     }
     
@@ -111,7 +117,7 @@ extension BitcoinListViewController: UITableViewDataSource, UITableViewDelegate 
         
         let price = viewModel.historicalBinderAt(index: indexPath.row)
         cell.configureCellFor(price)
-    
+        
         return cell
     }
     

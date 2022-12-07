@@ -13,7 +13,7 @@ public extension Resource {
     static var historicalPrices: Resource {
         let parameters: [String : CustomStringConvertible] = [
             "vs_currency": "eur",
-            "days": "20",
+            "days": "\(Config.HISTORICAL_AMOUNT_DAYS))",
             "interval": "daily"
             ]
         return Resource(url: ApiConstants.historicalURL, parameters: parameters)
