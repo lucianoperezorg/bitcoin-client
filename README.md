@@ -8,7 +8,7 @@
 Double click in the following workspace: `bitcoin-client.xcworkspace`
 
 ## Run the app
-Select the target `iOS` then select run.
+Select the target `iOS` then press run.
 
 ## Project architecture
 The project is divided into 3 layers, iOS, Domain, and HTTPNetwork.
@@ -20,10 +20,8 @@ The reason why `Domain` and `HTTPNetwork` layers are mac framework is because th
 
 You can change the refresh frequency or the amount of day for the bitcoin Historical price in the struct `Config.swift`.
 
-*** Coordinator pattern was not implemented because the app is quite small which implemented it would overengineer the implementation.
-
 ## API used
-The website to retrieve the information is coingecko.com, please see the following URL for details: 
+The website to retrieve the Bitcoin prices is `coingecko.com`, please see the following URL for details: 
 https://www.coingecko.com/en/api/documentation
 
 The app uses 3 different endpoints to get the data. 
@@ -46,8 +44,8 @@ This URL provides the bitcoin price for a particular date in different currencie
 Select the target you want to test then press ctr+U.
 Targets avaialble: `iOS`, `Domain`, `HTTPNetwork`, `UnitTestAllModule` `iOSUIEndToEndTest`.
 
-The schema `UnitestAllModule` contains all module unit tests but you can run them independently by selecting the schema and then ctrl+u.
-iOSUIEndToEndTest is to minimal UI test to test the navigation. This schema is not meant to be run everytime. For instance, the pipeline can have a rule to run it every time someone merges a new branch to develop a branch or when the app is going to be released.
+`UnitestAllModule` contains all module unit tests but you can run them independently by selecting the schema and then ctrl+u.
+iOSUIEndToEndTest is a minimal UI test to test the navigation. This schema is not meant to be run everytime. It can be run every time someone merges a new branch to develop a branch or when the app is going to be released.
 
 ## Author
 Luciano Perez 
