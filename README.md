@@ -16,7 +16,7 @@ The project is divided into 3 layers, iOS, Domain, and HTTPNetwork.
 - `Domain` is where all the app logic is contained. This is the Mac framework.
 - `HTTPNetwork` is where all the concrete HTTP implementation is. This is the Mac framework.
 
-The reason why `Domain` and `HTTPNetwork` layers are mac framework is becaise they are agnostic to any UI implementation and also to speed up the testing in the app.
+The reason why `Domain` and `HTTPNetwork` layers are mac framework is because they are agnostic to any UI implementation and also to speed up the testing in the app.
 
 You can change the refresh frequency or the amount of day for the bitcoin Historical price in the struct `Config.swift`.
 
@@ -25,8 +25,6 @@ You can change the refresh frequency or the amount of day for the bitcoin Histor
 ## API used
 The website to retrieve the information is coingecko.com, please see the following URL for details: 
 https://www.coingecko.com/en/api/documentation
-The reason for not using www.coindesk.com is that the website provided was not working (http://www.coindesk.com/api/).
-Also, a coindesk endpoint to get the historical price seems to be not working.
 
 The app uses 3 different endpoints to get the data. 
 
@@ -49,7 +47,7 @@ Select the target you want to test then press ctr+U.
 Targets avaialble: `iOS`, `Domain`, `HTTPNetwork`, `UnitTestAllModule` `iOSUIEndToEndTest`.
 
 The schema `UnitestAllModule` contains all module unit tests but you can run them independently by selecting the schema and then ctrl+u.
-iOSUIEndToEndTest is to minimal UI test to test the navigation. This schema is not meant to be run. IE: The pipeline will have the rule to run it every time someone merges a new branch to develop a branch or when the app is going to be released.
+iOSUIEndToEndTest is to minimal UI test to test the navigation. This schema is not meant to be run everytime. For instance, the pipeline can have a rule to run it every time someone merges a new branch to develop a branch or when the app is going to be released.
 
 ## Author
 Luciano Perez 
