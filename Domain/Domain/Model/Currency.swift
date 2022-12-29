@@ -7,22 +7,16 @@
 
 import Foundation
 
-public enum Currency: String {
-    case EUR, USD, GBP
-    
-    public var description: String {
-        switch self {
-        case .EUR: return "eur"
-        case .USD: return "usd"
-        case .GBP: return "gbp"
-        }
-    }
-    
+public enum Currency: String, CaseIterable {
+    case USD = "usd", EUR = "eur", GBP = "gbp", ARS = "ars", MX = "mxn", JPY = "jpy"
+
     public var icon: String {
         switch self {
         case .EUR: return "🇪🇺"
         case .USD: return "🇺🇸"
         case .GBP: return "🇬🇧"
+        case .ARS: return "🇦🇷"
+        default: return "🏳️"
         }
     }
 }

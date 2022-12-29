@@ -42,8 +42,8 @@ final class BitcoinDetailViewControllerTests: XCTestCase {
 
         let cellAtIndex0 = try? XCTUnwrap(getCellAt(tableView: sut.tableView))
         let cellAtIndex1 = try? XCTUnwrap(getCellAt(tableView: sut.tableView, index: 1))
-        XCTAssertEqual(cellAtIndex0?.textLabel?.text, "\(Currency.EUR.icon) 1 \(Currency.EUR.description)")
-        XCTAssertEqual(cellAtIndex1?.textLabel?.text, "\(Currency.USD.icon) 2 \(Currency.USD.description)")
+        XCTAssertEqual(cellAtIndex0?.textLabel?.text, "\(Currency.EUR.icon) 1 \(Currency.EUR.rawValue)")
+        XCTAssertEqual(cellAtIndex1?.textLabel?.text, "\(Currency.USD.icon) 2 \(Currency.USD.rawValue)")
         XCTAssertEqual(sut.errorLabel.alpha, 0)
     }
     

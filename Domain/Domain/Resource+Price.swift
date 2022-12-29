@@ -12,8 +12,8 @@ public extension Resource {
 
     static var historicalPrices: Resource {
         let parameters: [String : CustomStringConvertible] = [
-            "vs_currency": "eur",
-            "days": "\(Config.HISTORICAL_AMOUNT_DAYS))",
+            "vs_currency": "\(Config.DEFAULT_CURRENCY.rawValue)",
+            "days": "\(Config.HISTORICAL_AMOUNT_DAYS)",
             "interval": "daily"
             ]
         return Resource(url: ApiConstants.historicalURL, parameters: parameters)
@@ -22,7 +22,7 @@ public extension Resource {
     static var currentPrice: Resource {
         let parameters: [String : CustomStringConvertible] = [
             "ids": "bitcoin",
-            "vs_currencies": "eur"
+            "vs_currencies": "\(Config.DEFAULT_CURRENCY.rawValue)"
             ]
         return Resource(url: ApiConstants.currentPriceURL, parameters: parameters)
     }

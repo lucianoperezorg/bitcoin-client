@@ -29,7 +29,7 @@ final class ResourcePriceTests: XCTestCase {
         
         XCTAssertEqual(components.host, "api.coingecko.com")
         XCTAssertEqual(components.path, "/api/v3/coins/bitcoin/market_chart")
-        XCTAssertTrue(parameters.contains("days=\(Config.HISTORICAL_AMOUNT_DAYS))"))
+        XCTAssertTrue(parameters.contains("days=\(Config.HISTORICAL_AMOUNT_DAYS)"))
         XCTAssertTrue(parameters.contains("interval=daily"))
         XCTAssertTrue(parameters.contains("vs_currency=eur"))
     }

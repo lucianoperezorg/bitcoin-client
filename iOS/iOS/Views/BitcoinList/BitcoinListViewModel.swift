@@ -69,7 +69,7 @@ final class BitcoinListViewModel {
     
     private func currentPriceSuccessMessage(price: Price) -> CurrectPriceBinder {
         let upDateMessage = "\(self.currentDate().toString(dateFormat: "HH:mm:ss")) - real-time data"
-        let currenctPriceMessage = "\(price.value) \(price.currency.description)"
+        let currenctPriceMessage = "\(price.value) \(price.currency.rawValue)"
         let currectPrice = CurrectPriceBinder(currentPrice: currenctPriceMessage, updateMessage: upDateMessage)
         return currectPrice
     }
@@ -91,12 +91,12 @@ final class BitcoinListViewModel {
      
     func historicalBinderAt(index: Int) -> HistoricalPriceBinder {
         let price = priceAt(index: index)
-        return HistoricalPriceBinder(date: price.date.toString(dateFormat: "MMM d, yyyy"), price: "\(Int(price.price))", currency: price.currency.description)
+        return HistoricalPriceBinder(date: price.date.toString(dateFormat: "MMM d, yyyy"), price: "\(Int(price.price))", currency: price.currency.rawValue)
     }
     
     func getTitleFor(index: Int) -> String {
         let price = priceAt(index: index)
-        return "\(Int(price.price)) \(price.currency.description) on \(price.date.toString())"
+        return "\(Int(price.price)) \(price.currency.rawValue) on \(price.date.toString())"
     }
     
     func handleLoadHistoricalResult(_ result: HistoricalPricesResult) {

@@ -52,21 +52,17 @@ private extension CurrencyDetailUseCase {
 
 fileprivate extension HistoryData {
     func toModel() -> [Price] {
-        var prices = [Price]()
-        if let usd = currentPrice.prices.usd {
-            let usdPrice = Price(value: usd, currency: .USD)
-            prices.append(usdPrice)
-        }
+        var finalPrices = [Price]()
+        let prices = currentPrice.prices.values
+        let defaultCurrencies = Config.DEFAULT_CURRENCIES_DETAIL
         
-        if let eur = currentPrice.prices.eur {
-            let eurPrice = Price(value: eur, currency: .EUR)
-            prices.append(eurPrice)
+        defaultCurrencies.forEach { value in
+            if let price = prices?[value.rawValue] {
+                guard let currency = Currency(rawValue: value.rawValue) else { return }
+                let usdPrice = Price(value: price, currency: currency)
+                finalPrices.append(usdPrice)
+            }
         }
-        
-        if let gbp = currentPrice.prices.gbp {
-            let gbpPrice = Price(value: gbp, currency: .GBP)
-            prices.append(gbpPrice)
-        }
-        return prices
+        return finalPrices
     }
 }

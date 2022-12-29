@@ -14,11 +14,20 @@ struct RemoteCurrentPrice: Decodable {
         case price = "bitcoin"
     }
     
+    enum DecodingError: Error {
+        case corruptedData
+    }
+    
     struct RemotePrice: Decodable {
-        public let current: Double
+        public var current: Double
         
-        enum CodingKeys: String, CodingKey {
-            case current = "eur"
+        init(from decoder: Decoder) throws {
+            let singleValueContainer = try decoder.singleValueContainer()
+            let currencyValue = try singleValueContainer.decode([String: Double].self)
+            guard let price = currencyValue.values.first else {
+                throw DecodingError.corruptedData
+            }
+            self.current = price
         }
     }
 }

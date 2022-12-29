@@ -48,7 +48,7 @@ final class BitcoinListViewControllerTests: XCTestCase {
         let price = Price(value: 234.3, currency: .EUR)
         currentPriceUseCase.priceResultHandler?(.success(price))
         let expectedDateStr = date.toString(dateFormat: "HH:mm:ss")
-        XCTAssertEqual(sut.currentPriceLabel.text, "234.3 \(Currency.EUR.description)")
+        XCTAssertEqual(sut.currentPriceLabel.text, "234.3 \(Currency.EUR.rawValue)")
         XCTAssertEqual(sut.currentPriceInfoLabel.text, "\(expectedDateStr) - real-time data")
     }
     
@@ -77,7 +77,7 @@ final class BitcoinListViewControllerTests: XCTestCase {
         
         let cell = try? XCTUnwrap(getCellAt(tableView: sut.historicalPricesTableView))
         XCTAssertEqual(cell?.priceLabel.text, "23")
-        XCTAssertEqual(cell?.currencyLabel.text, Currency.EUR.description)
+        XCTAssertEqual(cell?.currencyLabel.text, Currency.EUR.rawValue)
         XCTAssertEqual(cell?.dateLabel.text, date.toString(dateFormat: "MMM d, yyyy"))
     }
     

@@ -22,9 +22,22 @@ struct HistoryData : Decodable {
         }
     }
     
+    enum DecodingError: Error {
+        case corruptedData
+    }
+    
     struct Prices: Decodable {
-        let usd: Double?
-        let eur: Double?
-        let gbp: Double?
+        let values: [String: Double]?
+    
+        init(from decoder: Decoder) throws {
+            let singleValueContainer = try decoder.singleValueContainer()
+            let currencyValues = try singleValueContainer.decode([String: Double].self)
+            
+            guard currencyValues.count > 0 else {
+                throw DecodingError.corruptedData
+            }
+            self.values = currencyValues
+        }
+        
     }
 }
