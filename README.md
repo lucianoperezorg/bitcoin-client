@@ -5,7 +5,7 @@
  Minimum target iOS 11
 
 ## Open Project
-Double click in the following workspace: `bitcoin-client.xcworkspace`
+Double click in the workspace `bitcoin-client.xcworkspace`
 
 ## Run the app
 Select the target `iOS` then press run.
