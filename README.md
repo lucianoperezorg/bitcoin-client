@@ -1,4 +1,3 @@
-https://hooks.bitrise.io/h/github/010e5c6346389853/-vrX1Q_C9xwzLKEDh0zYOA
 
 # Bitcoin-client
 
