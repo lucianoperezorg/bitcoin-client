@@ -50,3 +50,4 @@ iOSUIEndToEndTest is a minimal UI test to test the navigation. This schema is no
 
 ## Author
 Luciano Perez
+test
