@@ -1,0 +1,2 @@
+- name: Bitrise money saver
+  uses: llaine/hans-landa@0.5
