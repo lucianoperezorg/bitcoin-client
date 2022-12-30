@@ -22,12 +22,6 @@ jobs:
           path: output/scan
 
 workflows:
-  build-test-adhoc:
+  build-test:
     jobs:
       - build-and-test
-      - adhoc:
-          filters:
-            branches:
-              only: develop
-          requires:
-            - build-and-test
