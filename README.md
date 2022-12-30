@@ -16,7 +16,7 @@ The project is divided into 3 layers, iOS, Domain, and HTTPNetwork.
 - `Domain` is where all the app logic is contained. This is the Mac framework.
 - `HTTPNetwork` is where all the concrete HTTP implementation is. This is the Mac framework.
 
-The reason why `Domain` and `HTTPNetwork` layers are mac framework is because they are agnostic to any UI implementation and also to speed up the testing in the app.
+The `Domain` and `HTTPNetwork` layers are mac framework because they are agnostic to any UI implementation and also to speed up the testing in the app.
 
 You can change the refresh frequency or the amount of day for the bitcoin Historical price in the struct `Config.swift`.
 
