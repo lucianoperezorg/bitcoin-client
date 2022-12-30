@@ -21,7 +21,7 @@ The `Domain` and `HTTPNetwork` layers are mac framework because they are agnosti
 You can change the refresh frequency or the amount of day for the bitcoin Historical price in the struct `Config.swift`.
 
 ## API used
-The website to retrieve the Bitcoin prices is `coingecko.com`, please see the following URL for details: 
+The website to retrieve the Bitcoin prices is `coingecko.com`, see the following URL for details: 
 https://www.coingecko.com/en/api/documentation
 
 The app uses 3 different endpoints to get the data. 
