@@ -48,4 +48,4 @@ Targets avaialble: `iOS`, `Domain`, `HTTPNetwork`, `UnitTestAllModule` `iOSUIEnd
 iOSUIEndToEndTest is a minimal UI test to test the navigation. This schema is not meant to be run everytime. It can be run every time someone merges a new branch to develop a branch or when the app is going to be released.
 
 ## Author
-Luciano Perez
+Luciano Perez.
