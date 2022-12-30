@@ -6,15 +6,11 @@ jobs:
       xcode: 14.0.1
     environment:
       FL_OUTPUT_DIR: output
-      FASTLANE_LANE: test
     steps:
       - checkout
       - run:
           name: build and run tests
-          command: fastlane scan
-          environment:
-            SCAN_DEVICE: iPhone 14
-            SCAN_SCHEME: UnitTestAllModules
+          command: xcodebuild test -scheme UnitTestAllModules -destination 'platform=iOS Simulator,name=iPhone 14'
       
       - store_artifacts:
           path: output
